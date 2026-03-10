@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lomboko Romaric FAHO — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#0f1b3d;--navy2:#1a2d5a;--gold:#e8a020;--gold-light:#f5c665;
+    --cream:#faf7f2;--cream2:#f0ebe1;--slate:#4a5568;--muted:#8a9ab5;
+    --white:#ffffff;--accent:#2dd4bf;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--navy);overflow-x:hidden;cursor:default;}
+
+  /* ── HERO STATS + VISITOR DROPDOWN ── */
+  .avatar-wrapper{position:relative;width:300px;height:300px;}
+  .hero-stats{
+    position:absolute;bottom:-90px;left:50%;transform:translateX(-50%);
+    display:flex;gap:0;
+    background:rgba(232,160,32,.08);
+    border:1px solid rgba(232,160,32,.2);
+    border-radius:4px;
+    white-space:nowrap;
+    overflow:visible;
+    z-index:3;
+  }
+  .stat{
+    text-align:center;padding:1rem 1.6rem;
+    border-right:1px solid rgba(232,160,32,.15);
+  }
+  .stat:last-child{border-right:none;}
+  .stat-num{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--gold);display:block;}
+  .stat-label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
+
+  .stat-visitors{
+    cursor:pointer;
+    transition:background .2s;
+    border-radius:0 4px 4px 0;
+  }
+  .stat-visitors:hover{background:rgba(232,160,32,.15);}
+  .stat-visitors .stat-label{color:var(--gold);}
+
+  /* Dropdown panel */
+  .vp-dropdown{
+    position:fixed;
+    width:480px;max-height:80vh;
+    background:var(--navy);
+    border:1px solid rgba(232,160,32,.35);
+    box-shadow:-10px 0 60px rgba(0,0,0,.7);
+    display:none;flex-direction:column;
+    z-index:9999;
+    top:50%;transform:translateY(-50%);
+    left:0;
+    border-left:none;
+    border-radius:0 8px 8px 0;
+  }
+  .vp-dropdown.open{display:flex;}
+  .vp-header{
+    padding:.8rem 1rem;
+    border-bottom:1px solid rgba(232,160,32,.2);
+    display:flex;justify-content:space-between;align-items:center;
+    flex-shrink:0;
+  }
+  .vp-title{font-family:'DM Serif Display',serif;color:var(--gold);font-size:.95rem;}
+  .vp-close{color:var(--muted);font-size:1rem;cursor:pointer;transition:color .2s;background:none;border:none;}
+  .vp-close:hover{color:var(--white);}
+  .vp-list{overflow-y:auto;flex:1;padding:.5rem;}
+  .vp-list::-webkit-scrollbar{width:4px;}
+  .vp-list::-webkit-scrollbar-thumb{background:rgba(232,160,32,.4);border-radius:2px;}
+  .vp-item{
+    display:flex;gap:1rem;align-items:flex-start;
+    padding:1rem;margin-bottom:.5rem;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:4px;
+    transition:border-color .2s;
+  }
+  .vp-item:hover{border-color:rgba(232,160,32,.3);}
+  .vp-index{
+    font-family:'DM Serif Display',serif;
+    font-size:1.4rem;color:rgba(232,160,32,.3);
+    min-width:30px;text-align:center;line-height:1;
+    padding-top:.2rem;
+  }
+  .vp-main{flex:1;}
+  .vp-name{color:var(--white);font-size:.95rem;font-weight:600;margin-bottom:.4rem;}
+  .vp-detail{color:var(--muted);font-size:.8rem;line-height:1.6;}
+  .vp-detail strong{color:var(--gold);font-weight:500;}
+  .vp-empty{color:var(--muted);text-align:center;padding:2rem;font-size:.85rem;}
+  .vp-meta{color:rgba(138,154,181,.7);font-size:.68rem;font-family:'JetBrains Mono',monospace;margin-top:.4rem;}
+  .vp-footer{
+    padding:.7rem 1rem;border-top:1px solid rgba(232,160,32,.15);
+    font-size:.72rem;color:var(--muted);text-align:center;
+    font-family:'JetBrains Mono',monospace;flex-shrink:0;
+  }
+
+  /* ── WELCOME GATE ── */
+  #welcome-gate{
+    position:fixed;inset:0;z-index:99999;
+    background:var(--navy);
+    display:flex;align-items:center;justify-content:center;
+    padding:2rem;
+  }
+  #welcome-gate::before{
+    content:'';position:absolute;inset:0;
+    background-image:linear-gradient(rgba(232,160,32,.05) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(232,160,32,.05) 1px,transparent 1px);
+    background-size:60px 60px;
+  }
+  .gate-box{
+    position:relative;z-index:2;
+    width:100%;max-width:520px;
+    background:rgba(26,45,90,.8);
+    border:1px solid rgba(232,160,32,.25);
+    padding:3rem;
+    backdrop-filter:blur(10px);
+  }
+  .gate-logo{
+    font-family:'DM Serif Display',serif;
+    font-size:1rem;color:var(--gold);letter-spacing:.1em;
+    text-transform:uppercase;margin-bottom:2rem;
+    display:flex;align-items:center;gap:.8rem;
+  }
+  .gate-logo::before{content:'';width:30px;height:1px;background:var(--gold);}
+  .gate-title{
+    font-family:'DM Serif Display',serif;
+    font-size:2rem;color:var(--white);
+    line-height:1.2;margin-bottom:.6rem;
+  }
+  .gate-title span{color:var(--gold);}
+  .gate-sub{color:var(--muted);font-size:.9rem;line-height:1.6;margin-bottom:2rem;}
+  .gate-form{display:flex;flex-direction:column;gap:1rem;}
+  .gate-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .gate-field{display:flex;flex-direction:column;gap:.4rem;}
+  .gate-field label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.72rem;color:var(--gold);
+    letter-spacing:.1em;text-transform:uppercase;
+  }
+  .gate-field input,.gate-field textarea{
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.12);
+    color:var(--white);
+    padding:.8rem 1rem;
+    font-family:'DM Sans',sans-serif;font-size:.9rem;
+    outline:none;
+    transition:border-color .2s;
+    resize:none;
+  }
+  .gate-field input:focus,.gate-field textarea:focus{border-color:var(--gold);}
+  .gate-field input::placeholder,.gate-field textarea::placeholder{color:var(--muted);}
+  .gate-submit{
+    margin-top:.5rem;
+    background:var(--gold);color:var(--navy);
+    padding:1rem;font-weight:700;font-size:.9rem;
+    letter-spacing:.06em;text-transform:uppercase;
+    border:none;cursor:pointer;
+    transition:background .2s,transform .2s;
+  }
+  .gate-submit:hover{background:var(--gold-light);transform:translateY(-2px);}
+  .gate-error{color:#e05c5c;font-size:.8rem;margin-top:-.5rem;display:none;}
+
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 4rem;display:flex;justify-content:space-between;align-items:center;background:rgba(15,27,61,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(232,160,32,.2);flex-wrap:wrap;gap:.5rem;}
+  .nav-logo{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--gold);}
+  .nav-links{display:flex;gap:2.5rem;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;transition:color .2s;cursor:pointer;}
+  .nav-links a:hover,.nav-links a.active{color:var(--gold);}
+
+  #hero{min-height:100vh;background:var(--navy);display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:8rem 4rem 4rem;position:relative;overflow:hidden;}
+  #hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(232,160,32,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(232,160,32,.06) 1px,transparent 1px);background-size:60px 60px;}
+  #hero::after{content:'';position:absolute;width:600px;height:600px;border-radius:50%;border:1px solid rgba(232,160,32,.1);right:-100px;top:50%;transform:translateY(-50%);}
+  .hero-left{position:relative;z-index:2;}
+  .hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(232,160,32,.12);border:1px solid rgba(232,160,32,.3);color:var(--gold);font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.4rem 1rem;border-radius:2px;margin-bottom:1.8rem;}
+  .hero-tag::before{content:'';width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}
+  .hero-name{font-family:'DM Serif Display',serif;font-size:clamp(2.8rem,5vw,4.5rem);color:var(--white);line-height:1.1;margin-bottom:.3rem;}
+  .hero-name span{color:var(--gold);}
+  .hero-title{font-family:'JetBrains Mono',monospace;font-size:1rem;color:var(--accent);margin-bottom:1.8rem;}
+  .hero-desc{color:var(--muted);font-size:1rem;line-height:1.75;max-width:480px;margin-bottom:2.5rem;}
+  .hero-buttons{display:flex;gap:1rem;flex-wrap:wrap;}
+  .btn-primary{background:var(--gold);color:var(--navy);padding:.9rem 2rem;font-weight:700;font-size:.88rem;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:background .2s,transform .2s;cursor:pointer;}
+  .btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);}
+  .btn-outline{border:1px solid rgba(255,255,255,.25);color:var(--white);padding:.9rem 2rem;font-weight:500;font-size:.88rem;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:border-color .2s,color .2s,transform .2s;cursor:pointer;}
+  .btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);}
+  .hero-right{display:flex;justify-content:center;align-items:center;position:relative;z-index:2;}
+  .avatar-ring{position:absolute;inset:-20px;border-radius:50%;border:2px dashed rgba(232,160,32,.3);animation:spin 30s linear infinite;}
+  .avatar-ring-2{position:absolute;inset:-40px;border-radius:50%;border:1px solid rgba(232,160,32,.1);animation:spin 50s linear infinite reverse;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .avatar-circle{
+    width:300px;height:300px;border-radius:50%;
+    background:linear-gradient(135deg,var(--navy2) 0%,#0d2247 100%);
+    border:3px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'DM Serif Display',serif;font-size:5.5rem;color:var(--gold);
+    overflow:hidden;position:relative;
+  }
+  .avatar-circle img{
+    width:100%;height:100%;object-fit:cover;
+    border-radius:50%;display:none;
+  }
+  .avatar-circle img.loaded{display:block;}
+  .avatar-circle .initials{position:absolute;}
+
+  .stat-num{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--gold);display:block;}
+  .stat-label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
+  section{padding:6rem 4rem;}
+  .section-label{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.6rem;display:flex;align-items:center;gap:.8rem;}
+  .section-label::after{content:'';flex:1;max-width:60px;height:1px;background:var(--gold);opacity:.4;}
+  .section-title{font-family:'DM Serif Display',serif;font-size:clamp(2rem,3.5vw,3rem);color:var(--navy);line-height:1.15;margin-bottom:3rem;}
+
+  /* PDF button */
+  .pdf-btn{
+    display:inline-flex;align-items:center;gap:.6rem;
+    margin-top:1.2rem;
+    padding:.7rem 1.4rem;
+    background:rgba(232,160,32,.1);
+    border:1px solid rgba(232,160,32,.4);
+    color:var(--gold);
+    text-decoration:none;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.75rem;letter-spacing:.08em;
+    transition:background .2s,transform .2s;
+    cursor:pointer;
+  }
+  .pdf-btn:hover{background:rgba(232,160,32,.2);transform:translateY(-2px);}
+  .pdf-btn svg{width:16px;height:16px;flex-shrink:0;}
+  .project-card.featured .pdf-btn{
+    background:rgba(232,160,32,.12);
+    border-color:rgba(232,160,32,.3);
+  }
+
+  #about{background:var(--white);}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+  .about-text p{color:var(--slate);line-height:1.8;font-size:1rem;margin-bottom:1.2rem;}
+  .about-info{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;}
+  .info-row{display:flex;align-items:flex-start;gap:1rem;padding:.8rem 1rem;background:var(--cream);border-left:3px solid var(--gold);font-size:.9rem;flex-wrap:wrap;}
+  .info-row strong{color:var(--navy);min-width:80px;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;}
+  .info-row span{color:var(--slate);}
+  .lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem;}
+  .lang-item{padding:1rem;background:var(--cream);border:1px solid var(--cream2);}
+  .lang-name{font-weight:600;font-size:.9rem;margin-bottom:.5rem;color:var(--navy);}
+  .lang-bar{height:4px;background:var(--cream2);border-radius:2px;overflow:hidden;}
+  .lang-fill{height:100%;background:var(--gold);border-radius:2px;}
+  #skills{background:var(--navy);}
+  #skills .section-title{color:var(--white);}
+  .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+  .skill-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:1.8rem;transition:border-color .3s,transform .3s;cursor:pointer;}
+  .skill-card:hover{border-color:rgba(232,160,32,.4);transform:translateY(-4px);}
+  .skill-icon{font-size:2rem;margin-bottom:1rem;}
+  .skill-card h3{color:var(--gold);font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;}
+  .skill-tags{display:flex;flex-wrap:wrap;gap:.5rem;}
+  .skill-tag{font-family:'JetBrains Mono',monospace;font-size:.75rem;padding:.3rem .7rem;background:rgba(232,160,32,.08);border:1px solid rgba(232,160,32,.2);color:var(--muted);border-radius:2px;}
+  #projects{background:var(--cream);}
+  .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+  .project-card{background:var(--white);border:1px solid var(--cream2);overflow:hidden;transition:box-shadow .3s,transform .3s;cursor:pointer;display:flex;flex-direction:column;}
+  .project-card:hover{box-shadow:0 20px 40px rgba(15,27,61,.12);transform:translateY(-6px);}
+  .project-card.featured{grid-column:span 2;background:var(--navy);color:var(--white);border-color:transparent;}
+  .project-header{padding:2rem 2rem 0;display:flex;justify-content:space-between;align-items:flex-start;}
+  .project-num{font-family:'DM Serif Display',serif;font-size:3rem;color:var(--cream2);line-height:1;opacity:.3;}
+  .project-card.featured .project-num{color:var(--white);opacity:.1;}
+  .project-type{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;padding:.3rem .8rem;border:1px solid rgba(232,160,32,.3);background:rgba(232,160,32,.06);}
+  .project-body{padding:1rem 2rem 2rem;flex:1;display:flex;flex-direction:column;}
+  .project-title{font-family:'DM Serif Display',serif;font-size:1.25rem;color:var(--navy);margin-bottom:.8rem;line-height:1.3;}
+  .project-card.featured .project-title{color:var(--white);font-size:1.5rem;}
+  .project-desc{font-size:.88rem;color:var(--slate);line-height:1.7;margin-bottom:1.2rem;}
+  .project-card.featured .project-desc{color:var(--muted);}
+  .project-tasks{margin-bottom:1.2rem;}
+  .project-tasks li{font-size:.82rem;color:var(--slate);padding:.25rem 0 .25rem 1rem;position:relative;list-style:none;line-height:1.5;}
+  .project-card.featured .project-tasks li{color:var(--muted);}
+  .project-tasks li::before{content:'→';position:absolute;left:0;color:var(--gold);font-size:.75rem;}
+  .project-techs{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto;min-width:0;}
+  .project-tech{font-family:'JetBrains Mono',monospace;font-size:.7rem;padding:.25rem .6rem;background:var(--cream);color:var(--navy);border-radius:2px;}
+  .project-card.featured .project-tech{background:rgba(255,255,255,.08);color:var(--muted);}
+  #experience{background:var(--white);}
+  .exp-formation-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+  .timeline{position:relative;padding-left:2rem;}
+  .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--gold),transparent);}
+  .timeline-item{position:relative;padding-left:2.5rem;margin-bottom:3rem;}
+  .timeline-item::before{content:'';position:absolute;left:-2.4rem;top:.4rem;width:12px;height:12px;background:var(--gold);border-radius:50%;border:3px solid var(--white);box-shadow:0 0 0 2px var(--gold);}
+  .timeline-date{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;}
+  .timeline-title{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--navy);margin-bottom:.3rem;}
+  .timeline-place{font-size:.85rem;color:var(--muted);margin-bottom:1rem;}
+  .timeline-tasks{list-style:none;}
+  .timeline-tasks li{font-size:.88rem;color:var(--slate);padding:.3rem 0 .3rem 1.2rem;position:relative;line-height:1.6;}
+  .timeline-tasks li::before{content:'▸';position:absolute;left:0;color:var(--gold);}
+  .formation-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem;}
+  .formation-card{background:var(--cream);padding:1.8rem;border-top:3px solid var(--gold);}
+  .formation-year{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--gold);letter-spacing:.1em;margin-bottom:.5rem;}
+  .formation-degree{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--navy);margin-bottom:.3rem;}
+  .formation-school{font-size:.85rem;color:var(--slate);}
+  #contact{background:var(--navy);text-align:center;}
+  #contact .section-title{color:var(--white);}
+  #contact .section-label{justify-content:center;}
+  #contact .section-label::after{display:none;}
+  .contact-sub{color:var(--muted);font-size:1rem;max-width:500px;margin:0 auto 3rem;line-height:1.7;}
+  .contact-cards{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:3rem;}
+  .contact-card{display:flex;align-items:center;gap:1rem;padding:1.2rem 2rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-decoration:none;transition:border-color .3s,transform .3s;cursor:pointer;min-width:260px;}
+  .contact-card:hover{border-color:var(--gold);transform:translateY(-3px);}
+  .contact-card-icon{font-size:1.4rem;}
+  .contact-card-info{text-align:left;}
+  .contact-card-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
+  .contact-card-value{font-size:.9rem;color:var(--white);word-break:break-word;overflow-wrap:anywhere;}
+  .refs-title{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--gold);margin-bottom:1.5rem;}
+  .refs-grid{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+  .ref-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:1.5rem 2rem;text-align:left;min-width:260px;}
+  .ref-name{font-weight:600;color:var(--white);margin-bottom:.2rem;}
+  .ref-role{font-size:.82rem;color:var(--gold);margin-bottom:.8rem;}
+  .ref-contact{font-size:.8rem;color:var(--muted);line-height:1.7;}
+  .ref-email{color:var(--gold);text-decoration:none;cursor:pointer;transition:color .2s;}
+  .ref-email:hover{color:var(--gold-light);text-decoration:underline;}
+  footer{background:#080f22;color:var(--muted);text-align:center;padding:2rem;font-size:.8rem;letter-spacing:.05em;}
+  footer span{color:var(--gold);}
+  /* Curseur pointeur sur tous les éléments cliquables */
+  a, button, [onclick], .stat-visitors, .skill-card, .project-card,
+  .contact-card, .pdf-btn, .gate-submit, .btn-primary, .btn-outline,
+  .nav-links a, .vp-close, .pdf-modal-close, .ref-email {
+    cursor:pointer !important;
+  }
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.visible{opacity:1;transform:none;}
+  .soft-tag{padding:.4rem 1rem;background:var(--cream);border:1px solid var(--cream2);font-size:.83rem;color:var(--slate);display:inline-block;}
+  .interest-tag{padding:.5rem 1.2rem;background:var(--cream);border:1px solid var(--cream2);border-left:3px solid var(--gold);font-size:.85rem;color:var(--slate);}
+  /* ═══════════════════════════════════════════════
+     RESPONSIVE — Tablette (≤1024px)
+  ═══════════════════════════════════════════════ */
+  @media(max-width:1024px){
+    nav{padding:1rem 2rem;}
+    #hero{padding:7rem 2rem 4rem;gap:2rem;}
+    section{padding:5rem 2rem;}
+    .skills-grid{grid-template-columns:1fr 1fr;}
+    .projects-grid{grid-template-columns:1fr 1fr;}
+    .project-card.featured{grid-column:span 2;}
+    .about-grid{gap:3rem;}
+    .exp-formation-grid{gap:3rem;}
+  }
+
+  /* ═══════════════════════════════════════════════
+     RESPONSIVE — Mobile large (≤768px)
+  ═══════════════════════════════════════════════ */
+  @media(max-width:768px){
+    nav{padding:.9rem 1.2rem;}
+    .nav-links{gap:.8rem;}
+    .nav-links a{font-size:.75rem;letter-spacing:.04em;}
+
+    section{padding:3.5rem 1.2rem;}
+
+    /* Hero */
+    #hero{
+      grid-template-columns:1fr;
+      padding:6rem 1.2rem 5rem;
+      text-align:center;
+      gap:0;
+    }
+    .hero-right{
+      display:flex;
+      justify-content:center;
+      margin-top:3rem;
+      padding-bottom:6rem;
+    }
+    .avatar-wrapper{width:220px;height:220px;}
+    .avatar-circle{width:220px;height:220px;font-size:4rem;}
+    .hero-stats{
+      position:absolute;
+      bottom:-80px;
+      left:50%;
+      transform:translateX(-50%);
+      white-space:nowrap;
+    }
+    .stat{padding:.7rem 1rem;}
+    .stat-num{font-size:1.3rem;}
+    .hero-desc{margin:0 auto 2rem;max-width:100%;}
+    .hero-buttons{justify-content:center;flex-wrap:wrap;gap:.8rem;}
+    .btn-primary,.btn-outline{padding:.8rem 1.5rem;font-size:.82rem;}
+
+    /* About */
+    .about-grid{grid-template-columns:1fr;gap:2rem;}
+    .gate-row{grid-template-columns:1fr;}
+    .lang-grid{grid-template-columns:1fr 1fr;}
+
+    /* Skills */
+    .skills-grid{grid-template-columns:1fr;}
+
+    /* Projects */
+    .projects-grid{grid-template-columns:1fr;}
+    .project-card.featured{grid-column:span 1;}
+    .project-header{padding:1.5rem 1.5rem 0;}
+    .project-body{padding:.8rem 1.5rem 1.5rem;}
+
+    /* Experience */
+    .exp-formation-grid{grid-template-columns:1fr;gap:2.5rem;}
+    .formation-grid{grid-template-columns:1fr;}
+
+    /* Contact */
+    .contact-cards{flex-direction:column;align-items:stretch;}
+    .contact-card{min-width:unset;width:100%;}
+    .refs-grid{flex-direction:column;align-items:stretch;}
+    .ref-card{min-width:unset;}
+
+    /* Visitor panel */
+    .vp-dropdown{width:calc(100vw - 1rem);left:0;border-radius:0 8px 8px 0;}
+  }
+
+  /* ═══════════════════════════════════════════════
+     RESPONSIVE — Mobile petit (≤480px)
+  ═══════════════════════════════════════════════ */
+  @media(max-width:480px){
+    nav{padding:.8rem 1rem;}
+    .nav-links{gap:.5rem;}
+    .nav-links a{font-size:.68rem;}
+    .nav-logo{font-size:1rem;}
+
+    section{padding:2.8rem 1rem;}
+
+    #hero{padding:5.5rem 1rem 5rem;}
+    .hero-name{font-size:2.2rem;}
+    .hero-title{font-size:.85rem;}
+    .hero-desc{font-size:.9rem;}
+
+    .avatar-wrapper{width:180px;height:180px;}
+    .avatar-circle{width:180px;height:180px;font-size:3.2rem;}
+    .hero-stats{bottom:-75px;}
+    .stat{padding:.6rem .8rem;}
+    .stat-num{font-size:1.1rem;}
+    .stat-label{font-size:.6rem;}
+
+    /* Gate (formulaire d'accueil) */
+    .gate-box{padding:2rem 1.2rem;}
+    .gate-title{font-size:1.6rem;}
+    .gate-row{grid-template-columns:1fr;}
+
+    /* Info rows */
+    .info-row{flex-direction:column;align-items:flex-start;gap:.3rem;}
+    .info-row strong{min-width:unset;}
+
+    /* Lang grid */
+    .lang-grid{grid-template-columns:1fr;}
+
+    /* Skills */
+    .skill-card{padding:1.3rem;}
+
+    /* Projects */
+    .project-num{font-size:2rem;}
+    .project-title{font-size:1.1rem;}
+    .project-card.featured .project-title{font-size:1.2rem;}
+    .project-body{padding:.8rem 1rem 1.2rem;}
+    .project-header{padding:1.2rem 1rem 0;}
+
+    /* Timeline */
+    .timeline-item{padding-left:1.8rem;}
+    .timeline-title{font-size:1.1rem;}
+
+    /* Contact */
+    .contact-card{padding:1rem 1.2rem;}
+    .contact-card-value{font-size:.82rem;word-break:break-all;}
+
+    /* Footer */
+    footer{font-size:.72rem;padding:1.5rem 1rem;}
+
+    /* Section titles */
+    .section-title{font-size:1.7rem;margin-bottom:2rem;}
+  }
+
+  /* ═══════════════════════════════════════════════
+     RESPONSIVE — Très petit (≤360px)
+  ═══════════════════════════════════════════════ */
+  @media(max-width:360px){
+    .nav-links a{font-size:.62rem;letter-spacing:0;}
+    .nav-links{gap:.3rem;}
+    section{padding:2.5rem .8rem;}
+    #hero{padding:5rem .8rem 5rem;}
+    .hero-name{font-size:1.9rem;}
+    .gate-box{padding:1.5rem .8rem;}
+    .project-techs{gap:.3rem;}
+    .project-tech{font-size:.62rem;padding:.2rem .4rem;}
+  }
+
+  /* ── PDF VIEWER MODAL ── */
+  .pdf-modal{
+    display:none;position:fixed;inset:0;z-index:99998;
+    background:rgba(10,15,35,.92);align-items:center;justify-content:center;
+    padding:2rem;
+  }
+  .pdf-modal.open{display:flex;}
+  .pdf-modal-box{
+    position:relative;width:100%;max-width:900px;height:85vh;
+    background:var(--navy);border:1px solid rgba(232,160,32,.3);
+    display:flex;flex-direction:column;
+  }
+  .pdf-modal-header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:.7rem 1.2rem;border-bottom:1px solid rgba(232,160,32,.2);
+    flex-shrink:0;
+  }
+  .pdf-modal-title{font-family:'DM Serif Display',serif;color:var(--gold);font-size:.95rem;}
+  .pdf-modal-close{
+    background:none;border:none;color:var(--muted);font-size:1.3rem;
+    cursor:pointer;transition:color .2s;line-height:1;
+  }
+  .pdf-modal-close:hover{color:var(--white);}
+  .pdf-modal-frame{flex:1;width:100%;border:none;background:#fff;}
+  .pdf-modal-overlay{
+    position:absolute;bottom:0;left:0;right:0;top:48px;
+    z-index:1;pointer-events:none;
+    background:transparent;
+  }
+  /* Bloquer téléchargement photo */
+  .avatar-circle{-webkit-user-select:none;user-select:none;position:relative;}
+  .avatar-circle img { pointer-events:none; -webkit-user-drag:none; user-select:none; }
+  .avatar-circle::after{
+    content:'';position:absolute;inset:0;border-radius:50%;
+    z-index:10;cursor:default;
+    background:transparent;
+  }
+  .pdf-btn{
+    display:inline-flex;align-items:center;gap:.6rem;
+    margin-top:1.2rem;padding:.7rem 1.4rem;
+    background:rgba(232,160,32,.1);border:1px solid rgba(232,160,32,.4);
+    color:var(--gold);font-family:'JetBrains Mono',monospace;
+    font-size:.75rem;letter-spacing:.08em;cursor:pointer;
+    transition:background .2s,transform .2s;
+  }
+  .pdf-btn:hover{background:rgba(232,160,32,.2);transform:translateY(-2px);}
+  .pdf-btn svg{width:16px;height:16px;flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<!-- ── WELCOME GATE ── -->
+<div id="welcome-gate">
+  <div class="gate-box">
+    <div class="gate-logo">R. FAHO — Portfolio</div>
+    <h1 class="gate-title">Bienvenue sur<br>mon <span>Portfolio</span></h1>
+    <p class="gate-sub">Avant d'accéder au portfolio, merci de renseigner quelques informations. Cela m'aide à mieux connaître mes visiteurs.</p>
+    <div class="gate-form">
+      <div class="gate-row">
+        <div class="gate-field">
+          <label>Prénom *</label>
+          <input type="text" id="g-prenom" placeholder="Votre prénom" maxlength="40">
+        </div>
+        <div class="gate-field">
+          <label>Nom *</label>
+          <input type="text" id="g-nom" placeholder="Votre nom" maxlength="40">
+        </div>
+      </div>
+      <div class="gate-field">
+        <label>Lieu de résidence *</label>
+        <input type="text" id="g-residence" placeholder="Ville, Pays" maxlength="80">
+      </div>
+      <div class="gate-field">
+        <label>But de votre visite *</label>
+        <textarea id="g-but" rows="2" placeholder="Ex : Recrutement, collaboration, curiosité…" maxlength="200"></textarea>
+        <span class="gate-error" id="g-error">Veuillez remplir tous les champs.</span>
+      </div>
+      <button class="gate-submit" onclick="submitGate()">Accéder au portfolio →</button>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-logo">R. FAHO</div>
+  <div class="nav-links">
+    <a href="#about">Profil</a>
+    <a href="#skills">Compétences</a>
+    <a href="#projects">Projets</a>
+    <a href="#experience">Expérience</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left reveal">
+    <div class="hero-tag">Disponible pour opportunités</div>
+    <h1 class="hero-name">Lomboko<br><span>Romaric</span> FAHO</h1>
+    <p class="hero-title">// Statisticien · Informaticien · Data Analyst</p>
+    <p class="hero-desc">Titulaire d'une Licence professionnelle en Statistique–Informatique, passionné par l'analyse de données, la modélisation statistique et l'informatique appliquée. Basé à Bobo-Dioulasso, Burkina Faso.</p>
+    <div class="hero-buttons">
+      <a href="#projects" class="btn-primary">Voir mes projets</a>
+      <a href="#contact" class="btn-outline">Me contacter</a>
+    </div>
+  </div>
+  <div class="hero-right reveal">
+    <div class="avatar-wrapper">
+      <div class="avatar-ring"></div>
+      <div class="avatar-ring-2"></div>
+      <div class="avatar-circle" id="avatar-circle">
+        <span class="initials">RF</span>
+        <img src="Photo.png" alt="Romaric FAHO" draggable="false"
+             onload="this.style.display='block';this.previousElementSibling.style.display='none';"
+             onerror="this.style.display='none';"
+             style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%;pointer-events:none;-webkit-user-drag:none;">
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">8+</span><span class="stat-label">Projets</span></div>
+        <div class="stat"><span class="stat-num">10+</span><span class="stat-label">Outils</span></div>
+        <div class="stat stat-visitors" id="stat-visitors-btn" onclick="togglePanel()">
+          <span class="stat-num" id="hvb-num">0</span>
+          <span class="stat-label">Visiteurs ▾</span>
+        </div>
+      </div>
+
+      <!-- DROPDOWN PANEL -->
+      <div id="visitor-panel" class="vp-dropdown">
+        <div class="vp-header">
+          <span class="vp-title">📊 Journal des visites</span>
+          <button onclick="resetVisits()" title="Réinitialiser" style="background:rgba(200,30,30,.15);color:#ff6b6b;border:1px solid rgba(200,30,30,.4);border-radius:4px;padding:.25rem .7rem;font-size:.75rem;cursor:pointer;margin-right:.5rem;">🗑 Reset</button><span class="vp-close" onclick="togglePanel(); event.stopPropagation()">✕</span>
+        </div>
+        <div class="vp-list" id="vp-list">
+          <div class="vp-empty">Chargement…</div>
+        </div>
+        <div class="vp-footer" id="vp-footer">—</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">01 — Profil</div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <h2 class="section-title">À propos de moi</h2>
+      <p>Jeune professionnel burkinabè, rigoureux et passionné par la statistique, l'analyse des données et l'informatique. Mon parcours combine des compétences solides en modélisation statistique avancée avec une maîtrise des outils informatiques modernes.</p>
+      <p>Mon objectif est d'intégrer un environnement académique et professionnel exigeant pour approfondir mes connaissances, développer une expertise de haut niveau et contribuer activement à la recherche et au développement.</p>
+      <div class="about-info">
+        <div class="info-row"><strong>Lieu</strong><span>Bobo-Dioulasso, Burkina Faso</span></div>
+        <div class="info-row"><strong>Diplôme</strong><span>Licence en Statistique–Informatique — Université Nazi BONI (2025)</span></div>
+        <div class="info-row"><strong>Tél.</strong><span>+226 55 53 28 24 / +226 63 90 63 02</span></div>
+        <div class="info-row"><strong>Email</strong><span><a href="mailto:faholombokoromaric@gmail.com" class="faholombokoromaric@gmail.com" data-cfemail="faholombokoromaric@gmail.com">faholombokoromaric@gmail.com</a></span></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <h3 style="font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:1.5rem;color:var(--navy)">Langues & Soft Skills</h3>
+      <div class="lang-grid">
+        <div class="lang-item">
+          <div class="lang-name">Français</div>
+          <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+          <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Langue maternelle</div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-name">Anglais</div>
+          <div class="lang-bar"><div class="lang-fill" style="width:55%"></div></div>
+          <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Niveau intermédiaire</div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-name">Mandarin</div>
+          <div class="lang-bar"><div class="lang-fill" style="width:25%"></div></div>
+          <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Niveau 2</div>
+        </div>
+      </div>
+      <div style="margin-top:2rem">
+        <h4 style="font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:1rem;font-family:'JetBrains Mono',monospace">Soft Skills</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:.6rem">
+          <span class="soft-tag">Rigueur scientifique</span><span class="soft-tag">Esprit analytique</span>
+          <span class="soft-tag">Autonomie</span><span class="soft-tag">Travail en équipe</span>
+          <span class="soft-tag">Curiosité intellectuelle</span><span class="soft-tag">Adaptabilité</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label" style="color:var(--gold)">02 — Compétences</div>
+  <h2 class="section-title">Expertise technique</h2>
+  <div class="skills-grid">
+    <div class="skill-card reveal"><div class="skill-icon">📊</div><h3>Statistiques & Maths</h3><div class="skill-tags"><span class="skill-tag">Probabilités</span><span class="skill-tag">Algèbre linéaire</span><span class="skill-tag">Statistiques descriptives</span><span class="skill-tag">Statistiques inférentielles</span><span class="skill-tag">Échantillonnage</span><span class="skill-tag">Analyse de variance</span></div></div>
+    <div class="skill-card reveal"><div class="skill-icon">🔬</div><h3>Analyse de données</h3><div class="skill-tags"><span class="skill-tag">Analyse multivariée</span><span class="skill-tag">Séries temporelles</span><span class="skill-tag">Modélisation stat.</span><span class="skill-tag">Régression logistique</span><span class="skill-tag">Régression linéaire</span><span class="skill-tag">ACM</span><span class="skill-tag">Analyse spatiale</span></div></div>
+    <div class="skill-card reveal"><div class="skill-icon">💻</div><h3>Programmation</h3><div class="skill-tags"><span class="skill-tag">R</span><span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">Java</span><span class="skill-tag">C / C++</span><span class="skill-tag">HTML/CSS/PHP</span><span class="skill-tag">LaTeX</span><span class="skill-tag">VBA</span></div></div>
+    <div class="skill-card reveal"><div class="skill-icon">🛠️</div><h3>Logiciels statistiques</h3><div class="skill-tags"><span class="skill-tag">Stata</span><span class="skill-tag">SPSS</span><span class="skill-tag">KoboCollect</span><span class="skill-tag">Excel / VBA</span><span class="skill-tag">Word / PowerPoint</span></div></div>
+    <div class="skill-card reveal"><div class="skill-icon">🗺️</div><h3>Analyse spatiale & Épidémio.</h3><div class="skill-tags"><span class="skill-tag">Cartographie</span><span class="skill-tag">SIG</span><span class="skill-tag">Régression binomiale négative</span><span class="skill-tag">Effets mixtes</span><span class="skill-tag">Données épidémio.</span></div></div>
+    <div class="skill-card reveal"><div class="skill-icon">🌐</div><h3>Développement web & apps</h3><div class="skill-tags"><span class="skill-tag">HTML/CSS/PHP</span><span class="skill-tag">Java (MVC)</span><span class="skill-tag">Scene Builder</span><span class="skill-tag">Gestion BDD</span><span class="skill-tag">Interface ergonomique</span></div></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">03 — Projets</div>
+  <h2 class="section-title">Travaux & Projets</h2>
+  <div class="projects-grid">
+
+    <div class="project-card featured reveal">
+      <div class="project-header">
+        <div class="project-num">01</div>
+        <span class="project-type">Rapport de fin de cycle</span>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">Analyse spatio-temporelle de la dengue au Burkina Faso (2020–2024)</h3>
+        <p class="project-desc">Stage de 6 mois au Centre MURAZ — Section CMGD. Analyse sur les 70 districts sanitaires du Burkina Faso. Concentration forte dans la région du Centre (Baskuy, Bogodogo, Nongr-Massom) et incidence modérée dans Boulmiougou, Koudougou, Ziniaré.</p>
+        <ul class="project-tasks">
+          <li>Régression binomiale négative à effets mixtes : température ×2,33 l'incidence (p&lt;0,001)</li>
+          <li>Précipitations +11% d'incidence ; vent fort −35,8% d'incidence (retard 2 mois)</li>
+          <li>Analyse cartographique et disparités géographiques sur 70 districts</li>
+          <li>Rédaction scientifique complète sous LaTeX</li>
+        </ul>
+        <div class="project-techs">
+          <span class="project-tech">R</span><span class="project-tech">LaTeX</span>
+          <span class="project-tech">Modèles mixtes</span><span class="project-tech">SIG</span>
+          <span class="project-tech">Séries temporelles</span>
+        </div>
+        <button onclick="openPdf('Rapport_Faho_Romaric.pdf','Rapport dengue — Romaric FAHO')" class="pdf-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Lire le rapport complet (PDF)
+        </button>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header"><div class="project-num">02</div><span class="project-type">Épidémiologie</span></div>
+      <div class="project-body">
+        <h3 class="project-title">Co-infection Paludisme–Dengue à Bobo-Dioulasso (2023)</h3>
+        <p class="project-desc">Étude de prévalence de la co-infection dengue–paludisme et identification des facteurs de risque associés.</p>
+        <ul class="project-tasks">
+          <li>Fréquence des cas de paludisme (goutte épaisse)</li>
+          <li>Fréquence des cas de dengue (tests sérologiques)</li>
+          <li>Identification des cas de co-infection</li>
+          <li>Facteurs de risque associés à la co-infection</li>
+        </ul>
+        <div class="project-techs"><span class="project-tech">R</span><span class="project-tech">Régression logistique</span><span class="project-tech">Épidémiologie</span></div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header"><div class="project-num">03</div><span class="project-type">Analyse de données</span></div>
+      <div class="project-body">
+        <h3 class="project-title">Pratiques sportives des étudiants — Université Nazi Boni</h3>
+        <p class="project-desc">Enquête et analyse statistique des comportements sportifs des étudiants de l'Université Nazi Boni.</p>
+        <ul class="project-tasks">
+          <li>Nettoyage et préparation des données</li>
+          <li>Analyses descriptives et inférentielles</li>
+          <li>Analyse des Correspondances Multiples (ACM)</li>
+          <li>Régression logistique sur la pratique du sport</li>
+        </ul>
+        <div class="project-techs"><span class="project-tech">R</span><span class="project-tech">ACM</span><span class="project-tech">Régression logistique</span></div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header"><div class="project-num">04</div><span class="project-type">Économie agricole</span></div>
+      <div class="project-body">
+        <h3 class="project-title">Rentabilité de la culture de la banane — Province du Houet</h3>
+        <p class="project-desc">Analyse économique et financière de la filière banane dans les communes de Bobo-Dioulasso et Bama.</p>
+        <ul class="project-tasks">
+          <li>Évaluation des coûts de production</li>
+          <li>Identification des contraintes techniques et financières</li>
+          <li>Proposition de stratégies d'amélioration</li>
+        </ul>
+        <div class="project-techs"><span class="project-tech">Stata</span><span class="project-tech">Excel</span><span class="project-tech">Analyse économique</span></div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header"><div class="project-num">05</div><span class="project-type">Enquête statistique</span></div>
+      <div class="project-body">
+        <h3 class="project-title">Satisfaction des étudiants — Université Nazi BONI</h3>
+        <p class="project-desc">Enquête sur la satisfaction des étudiants vis-à-vis des services universitaires offerts.</p>
+        <ul class="project-tasks">
+          <li>Conception du questionnaire et collecte</li>
+          <li>Analyse descriptive des résultats</li>
+          <li>Interprétation et rédaction du rapport</li>
+        </ul>
+        <div class="project-techs"><span class="project-tech">KoboCollect</span><span class="project-tech">Excel</span><span class="project-tech">R</span><span class="project-tech">LaTeX</span></div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header"><div class="project-num">06</div><span class="project-type">Java — Développement</span></div>
+      <div class="project-body">
+        <h3 class="project-title">Calculatrice scientifique — Application Java</h3>
+        <p class="project-desc">Application Java orientée objet avec interface graphique ergonomique pour opérations scientifiques avancées.</p>
+        <ul class="project-tasks">
+          <li>Architecture MVC (Model-View-Controller)</li>
+          <li>Opérations scientifiques avancées</li>
+          <li>Interface avec Scene Builder + stylisation CSS</li>
+        </ul>
+        <div class="project-techs"><span class="project-tech">Java</span><span class="project-tech">Scene Builder</span><span class="project-tech">MVC</span><span class="project-tech">CSS</span></div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header"><div class="project-num">07</div><span class="project-type">Excel VBA</span></div>
+      <div class="project-body">
+        <h3 class="project-title">Système de gestion de stock — Dépôt pharmaceutique</h3>
+        <p class="project-desc">Outil Excel VBA complet pour la gestion de stock et des ventes d'un dépôt de pharmacie.</p>
+        <ul class="project-tasks">
+          <li>Enregistrement des produits en base de données</li>
+          <li>Gestion des ventes avec contrôle des quantités</li>
+          <li>Alertes automatiques de rupture de stock</li>
+          <li>Rapports récapitulatifs journaliers, mensuels, annuels</li>
+        </ul>
+        <div class="project-techs"><span class="project-tech">Excel</span><span class="project-tech">VBA</span><span class="project-tech">Base de données</span></div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header"><div class="project-num">08</div><span class="project-type">Développement Web</span></div>
+      <div class="project-body">
+        <h3 class="project-title">Plateforme immobilière — Mise en contact locataires & acheteurs</h3>
+        <p class="project-desc">Site web de vente et location immobilière permettant la mise en relation entre propriétaires et intéressés.</p>
+        <ul class="project-tasks">
+          <li>Publication de biens avec photos (vente/location)</li>
+          <li>Interface de contact propriétaire–acheteur/locataire</li>
+          <li>Gestion des annonces et des utilisateurs</li>
+        </ul>
+        <div class="project-techs"><span class="project-tech">HTML</span><span class="project-tech">CSS</span><span class="project-tech">PHP</span><span class="project-tech">SQL</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE & FORMATION -->
+<section id="experience">
+  <div class="section-label">04 — Parcours</div>
+  <div class="exp-formation-grid">
+    <div>
+      <h2 class="section-title">Expériences</h2>
+      <div class="timeline reveal">
+        <div class="timeline-item">
+          <div class="timeline-date">Mars – Août 2025</div>
+          <div class="timeline-title">Stagiaire — Centre MURAZ</div>
+          <div class="timeline-place">📍 Section CMGD, Bobo-Dioulasso</div>
+          <ul class="timeline-tasks">
+            <li>Traitement de données épidémiologiques — 70 districts sanitaires</li>
+            <li>Analyse spatio-temporelle et modélisation statistique avancée</li>
+            <li>Étude des variables climatiques sur l'incidence de la dengue</li>
+            <li>Régressions, séries temporelles, analyse multivariée</li>
+            <li>Production d'indicateurs pour l'aide à la décision en santé publique</li>
+            <li>Rédaction scientifique sous LaTeX</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">Janvier 2025</div>
+          <div class="timeline-title">Enquêteur — Université Nazi BONI</div>
+          <div class="timeline-place">📍 Bobo-Dioulasso, Burkina Faso</div>
+          <ul class="timeline-tasks">
+            <li>Conception du questionnaire de satisfaction</li>
+            <li>Collecte et traitement des données</li>
+            <li>Analyse descriptive et interprétation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h2 class="section-title">Formation</h2>
+      <div class="formation-grid reveal">
+        <div class="formation-card">
+          <div class="formation-year">2022 — 2025</div>
+          <div class="formation-degree">Licence Statistique–Informatique</div>
+          <div class="formation-school">Université Nazi BONI, Burkina Faso</div>
+        </div>
+        <div class="formation-card">
+          <div class="formation-year">2022</div>
+          <div class="formation-degree">Baccalauréat Scientifique (Série D)</div>
+          <div class="formation-school">Lycée Communal de Dédougou, Burkina Faso</div>
+        </div>
+      </div>
+      <div class="reveal">
+        <h4 style="font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--navy);margin-bottom:1rem">Centres d'intérêt</h4>
+        <div style="display:flex;flex-wrap:wrap;gap:.6rem">
+          <span class="interest-tag">📚 Lecture scientifique</span>
+          <span class="interest-tag">📊 Data science</span>
+          <span class="interest-tag">⚽ Sport</span>
+          <span class="interest-tag">🎵 Musique</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">05 — Contact</div>
+  <h2 class="section-title">Travaillons ensemble</h2>
+  <p class="contact-sub">Disponible pour des opportunités académiques, des collaborations de recherche ou des projets data. N'hésitez pas à me contacter !</p>
+  <div class="contact-cards reveal">
+    <a href="mailto:faholombokoromaric@gmail.com" class="contact-card">
+      <div class="contact-card-icon">✉️</div>
+      <div class="contact-card-info"><div class="contact-card-label">Email</div><div class="contact-card-value">faholombokoromaric@gmail.com</div></div>
+    </a>
+    <a href="tel:+22655532824" class="contact-card">
+      <div class="contact-card-icon">📱</div>
+      <div class="contact-card-info"><div class="contact-card-label">Téléphone</div><div class="contact-card-value">+226 55 53 28 24</div></div>
+    </a>
+    <a href="https://linkedin.com/in/lomboko-romaric-faho" target="_blank" class="contact-card">
+      <div class="contact-card-icon">💼</div>
+      <div class="contact-card-info"><div class="contact-card-label">LinkedIn</div><div class="contact-card-value">lomboko-romaric-faho</div></div>
+    </a>
+    <div class="contact-card">
+      <div class="contact-card-icon">📍</div>
+      <div class="contact-card-info"><div class="contact-card-label">Localisation</div><div class="contact-card-value">Bobo-Dioulasso, Burkina Faso</div></div>
+    </div>
+  </div>
+  <div class="reveal">
+    <p class="refs-title">Références professionnelles</p>
+    <div class="refs-grid">
+      <div class="ref-card">
+        <div class="ref-name">Dr M. A. Serge SOMDA</div>
+        <div class="ref-role">Biostatisticien — Centre MURAZ</div>
+        <div class="ref-contact">📧 <a href="mailto:manituo@gmail.com" class="ref-email">manituo@gmail.com</a><br>📱 <a href="tel:+22670443322" class="ref-email">+226 70 44 33 22</a></div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-name">Mr Issouf Traoré</div>
+        <div class="ref-role">Ingénieur d'aide à la décision</div>
+        <div class="ref-contact">📧 <a href="mailto:issouftraore521@gmail.com" class="ref-email">issouftraore521@gmail.com</a><br>📱 <a href="tel:+22677531444" class="ref-email">+226 77 53 14 44</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <span>Lomboko Romaric FAHO</span> — Statisticien · Informaticien · Bobo-Dioulasso, Burkina Faso</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── CURSOR ──
+;
+
+// ── SCROLL REVEAL ──
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e,i) => { if(e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i*80); });
+}, {threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// ── ACTIVE NAV ──
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if(window.scrollY >= s.offsetTop - 100) cur = s.id; });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--gold)' : '';
+  });
+});
+
+// ── WELCOME GATE ──
+function submitGate() {
+  const prenom    = document.getElementById('g-prenom').value.trim();
+  const nom       = document.getElementById('g-nom').value.trim();
+  const residence = document.getElementById('g-residence').value.trim();
+  const but       = document.getElementById('g-but').value.trim();
+  const errEl     = document.getElementById('g-error');
+
+  if (!prenom || !nom || !residence || !but) {
+    errEl.style.display = 'block';
+    return;
+  }
+  errEl.style.display = 'none';
+
+  // Hide gate with fade
+  const gate = document.getElementById('welcome-gate');
+  gate.style.transition = 'opacity .6s ease';
+  gate.style.opacity = '0';
+  setTimeout(() => gate.style.display = 'none', 620);
+
+  // Record visit with form data
+  recordVisit({ prenom, nom, residence, but });
+}
+
+// Allow Enter key on last field
+document.getElementById('g-but').addEventListener('keydown', function(e){
+  if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); submitGate(); }
+});
+
+// Check if already visited this session (skip gate)
+if (sessionStorage.getItem('visit_recorded')) {
+  document.getElementById('welcome-gate').style.display = 'none';
+}
+
+// ── VISITOR TRACKER ──
+const STORAGE_KEY = 'portfolio_visits_v2';
+const MAX_VISITS  = 200;
+// ⚠️  CHANGEZ CE MOT DE PASSE pour protéger la liste
+const OWNER_PWD   = 'Roma55532824.';
+
+function flagEmoji(country) {
+  const map = {
+    'Burkina Faso':'🇧🇫','France':'🇫🇷','Côte d\'Ivoire':'🇨🇮','Mali':'🇲🇱',
+    'Sénégal':'🇸🇳','Cameroun':'🇨🇲','Togo':'🇹🇬','Bénin':'🇧🇯',
+    'Niger':'🇳🇪','Guinée':'🇬🇳','Germany':'🇩🇪','United States':'🇺🇸',
+    'Canada':'🇨🇦','Belgium':'🇧🇪','Switzerland':'🇨🇭','Morocco':'🇲🇦',
+    'Tunisia':'🇹🇳','Algeria':'🇩🇿','Senegal':'🇸🇳','Ivory Coast':'🇨🇮',
+    'Ghana':'🇬🇭','Nigeria':'🇳🇬','China':'🇨🇳','Japan':'🇯🇵','Spain':'🇪🇸',
+    'Italy':'🇮🇹','United Kingdom':'🇬🇧','Netherlands':'🇳🇱',
+  };
+  return map[country] || '🌍';
+}
+
+function formatDate(ts) {
+  const d = new Date(ts);
+  const days = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+  const months = ['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
+  return `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()} à ${String(d.getHours()).padStart(2,'0')}h${String(d.getMinutes()).padStart(2,'0')}`;
+}
+
+function loadVisits() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+  catch { return []; }
+}
+function saveVisits(v) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(v));
+}
+
+function resetVisits() {
+  if (!confirm('Réinitialiser la liste des visiteurs ?')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  document.getElementById('hvb-num').textContent = '0';
+  renderPanel([]);
+}
+
+function renderPanel(visits) {
+  const list    = document.getElementById('vp-list');
+  const footer  = document.getElementById('vp-footer');
+  const hvbNum  = document.getElementById('hvb-num');
+  if (hvbNum) hvbNum.textContent = visits.length;
+  if (footer) footer.textContent = visits.length + ' visite(s) enregistrée(s)';
+  if (!visits.length) {
+    list.innerHTML = '<div class="vp-empty">Aucune visite enregistrée pour l\'instant.</div>';
+    return;
+  }
+  list.innerHTML = [...visits].reverse().map((v, i) => `
+    <div class="vp-item">
+      <div class="vp-index">${visits.length - i}</div>
+      <div class="vp-main">
+        <div class="vp-name">${v.prenom || ''} ${v.nom || ''} ${flagEmoji(v.country)}</div>
+        <div class="vp-detail"><strong>Lieu :</strong> ${v.residence || '—'}</div>
+        <div class="vp-detail"><strong>But :</strong> ${v.but || '—'}</div>
+        <div class="vp-detail"><strong>Localisation :</strong> ${v.city ? v.city + ', ' : ''}${v.country || 'Inconnu'}</div>
+        <div class="vp-meta">${formatDate(v.ts)}${v.ip ? ' · ' + v.ip : ''}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function recordVisit(formData) {
+  sessionStorage.setItem('visit_recorded', '1');
+  let geoData = { country: 'Inconnu', city: '', ip: '' };
+  try {
+    const r = await fetch('https://ipapi.co/json/', {signal: AbortSignal.timeout(5000)});
+    if (r.ok) {
+      const d = await r.json();
+      geoData = {
+        country: d.country_name || 'Inconnu',
+        city: d.city || '',
+        ip: d.ip ? d.ip.slice(0,-3) + 'xxx' : '',
+      };
+    }
+  } catch(e) {}
+
+  const visits = loadVisits();
+  visits.push({ ts: Date.now(), ...formData, ...geoData });
+  if (visits.length > MAX_VISITS) visits.splice(0, visits.length - MAX_VISITS);
+  saveVisits(visits);
+  renderPanel(visits);
+}
+
+function togglePanel() {
+  const panel = document.getElementById('visitor-panel');
+  // Demander le mot de passe si pas encore authentifié cette session
+  if (!sessionStorage.getItem('owner_auth')) {
+    const pwd = prompt('🔐 Mot de passe propriétaire :');
+    if (pwd !== OWNER_PWD) {
+      alert('Accès refusé.');
+      return;
+    }
+    sessionStorage.setItem('owner_auth', '1');
+  }
+  const isOpen = panel.classList.toggle('open');
+  if (isOpen) renderPanel(loadVisits());
+}
+
+// Fermer panel si clic en dehors
+document.addEventListener('click', function(e) {
+  const panel = document.getElementById('visitor-panel');
+  const btn   = document.getElementById('stat-visitors-btn');
+  if (panel.classList.contains('open') && !panel.contains(e.target) && !btn.contains(e.target)) {
+    panel.classList.remove('open');
+  }
+});
+
+// Initialize counter display only (no auth needed to see count)
+renderPanel(loadVisits());
+
+// ── PDF VIEWER (no download) ──
+function openPdf(file, title) {
+  // Utilise Google Docs Viewer pour visualisation sans option de téléchargement natif
+  // Fallback: iframe direct avec toolbar masquée
+  const frame = document.getElementById('pdf-modal-frame');
+  const base = window.location.href.replace(/[^/]*$/, '');
+  const fullUrl = base + file;
+  // Google Docs viewer (viewer externe sans bouton download)
+  frame.src = file + '#toolbar=0&navpanes=0&scrollbar=1&view=FitH';
+  document.getElementById('pdf-modal-title').textContent = title;
+  document.getElementById('pdf-modal').classList.add('open');
+}
+function closePdfModal(e) {
+  if (e.target === document.getElementById('pdf-modal')) {
+    document.getElementById('pdf-modal').classList.remove('open');
+  }
+}
+// Bloquer clic droit sur photo et modal PDF
+document.addEventListener('contextmenu', function(e) {
+  if (e.target.closest('.avatar-circle') || e.target.closest('.pdf-modal')) {
+    e.preventDefault();
+  }
+});
+// Bloquer raccourcis clavier de téléchargement dans le modal PDF
+document.addEventListener('keydown', function(e) {
+  const modal = document.getElementById('pdf-modal');
+  if (modal && modal.classList.contains('open')) {
+    if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'p')) {
+      e.preventDefault();
+    }
+  }
+});
+</script>
+
+<!-- ── PDF VIEWER MODAL ── -->
+<div id="pdf-modal" class="pdf-modal" onclick="closePdfModal(event)">
+  <div class="pdf-modal-box">
+    <div class="pdf-modal-header">
+      <span class="pdf-modal-title" id="pdf-modal-title">Document</span>
+      <button class="pdf-modal-close" onclick="document.getElementById('pdf-modal').classList.remove('open')">✕</button>
+    </div>
+    <iframe id="pdf-modal-frame" class="pdf-modal-frame" src="" title="Document PDF"></iframe>
+  </div>
+</div>
+</body>
+</html>
