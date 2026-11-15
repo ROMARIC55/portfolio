@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lomboko Romaric FAHO — Portfolio</title>
+<meta name="description" content="Portfolio de Lomboko Romaric FAHO, statisticien-informaticien à Bobo-Dioulasso : analyse de données, modélisation statistique, aide à la décision.">
+<meta property="og:title" content="Lomboko Romaric FAHO — Portfolio">
+<meta property="og:description" content="Statisticien-informaticien : projets, compétences et parcours.">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -15,7 +18,7 @@
   html{scroll-behavior:smooth;}
   body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--navy);overflow-x:hidden;cursor:default;}
 
-  /* ── HERO STATS + VISITOR DROPDOWN ── */
+  /* ── HERO STATS ── */
   .avatar-wrapper{position:relative;width:300px;height:300px;}
   .hero-stats{
     position:absolute;bottom:-90px;left:50%;transform:translateX(-50%);
@@ -34,135 +37,6 @@
   .stat:last-child{border-right:none;}
   .stat-num{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--gold);display:block;}
   .stat-label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
-
-  .stat-visitors{
-    cursor:pointer;
-    transition:background .2s;
-    border-radius:0 4px 4px 0;
-  }
-  .stat-visitors:hover{background:rgba(232,160,32,.15);}
-  .stat-visitors .stat-label{color:var(--gold);}
-
-  /* Dropdown panel */
-  .vp-dropdown{
-    position:fixed;
-    width:480px;max-height:80vh;
-    background:var(--navy);
-    border:1px solid rgba(232,160,32,.35);
-    box-shadow:-10px 0 60px rgba(0,0,0,.7);
-    display:none;flex-direction:column;
-    z-index:9999;
-    top:50%;transform:translateY(-50%);
-    left:0;
-    border-left:none;
-    border-radius:0 8px 8px 0;
-  }
-  .vp-dropdown.open{display:flex;}
-  .vp-header{
-    padding:.8rem 1rem;
-    border-bottom:1px solid rgba(232,160,32,.2);
-    display:flex;justify-content:space-between;align-items:center;
-    flex-shrink:0;
-  }
-  .vp-title{font-family:'DM Serif Display',serif;color:var(--gold);font-size:.95rem;}
-  .vp-close{color:var(--muted);font-size:1rem;cursor:pointer;transition:color .2s;background:none;border:none;}
-  .vp-close:hover{color:var(--white);}
-  .vp-list{overflow-y:auto;flex:1;padding:.5rem;}
-  .vp-list::-webkit-scrollbar{width:4px;}
-  .vp-list::-webkit-scrollbar-thumb{background:rgba(232,160,32,.4);border-radius:2px;}
-  .vp-item{
-    display:flex;gap:1rem;align-items:flex-start;
-    padding:1rem;margin-bottom:.5rem;
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.07);
-    border-radius:4px;
-    transition:border-color .2s;
-  }
-  .vp-item:hover{border-color:rgba(232,160,32,.3);}
-  .vp-index{
-    font-family:'DM Serif Display',serif;
-    font-size:1.4rem;color:rgba(232,160,32,.3);
-    min-width:30px;text-align:center;line-height:1;
-    padding-top:.2rem;
-  }
-  .vp-main{flex:1;}
-  .vp-name{color:var(--white);font-size:.95rem;font-weight:600;margin-bottom:.4rem;}
-  .vp-detail{color:var(--muted);font-size:.8rem;line-height:1.6;}
-  .vp-detail strong{color:var(--gold);font-weight:500;}
-  .vp-empty{color:var(--muted);text-align:center;padding:2rem;font-size:.85rem;}
-  .vp-meta{color:rgba(138,154,181,.7);font-size:.68rem;font-family:'JetBrains Mono',monospace;margin-top:.4rem;}
-  .vp-footer{
-    padding:.7rem 1rem;border-top:1px solid rgba(232,160,32,.15);
-    font-size:.72rem;color:var(--muted);text-align:center;
-    font-family:'JetBrains Mono',monospace;flex-shrink:0;
-  }
-
-  /* ── WELCOME GATE ── */
-  #welcome-gate{
-    position:fixed;inset:0;z-index:99999;
-    background:var(--navy);
-    display:flex;align-items:center;justify-content:center;
-    padding:2rem;
-  }
-  #welcome-gate::before{
-    content:'';position:absolute;inset:0;
-    background-image:linear-gradient(rgba(232,160,32,.05) 1px,transparent 1px),
-      linear-gradient(90deg,rgba(232,160,32,.05) 1px,transparent 1px);
-    background-size:60px 60px;
-  }
-  .gate-box{
-    position:relative;z-index:2;
-    width:100%;max-width:520px;
-    background:rgba(26,45,90,.8);
-    border:1px solid rgba(232,160,32,.25);
-    padding:3rem;
-    backdrop-filter:blur(10px);
-  }
-  .gate-logo{
-    font-family:'DM Serif Display',serif;
-    font-size:1rem;color:var(--gold);letter-spacing:.1em;
-    text-transform:uppercase;margin-bottom:2rem;
-    display:flex;align-items:center;gap:.8rem;
-  }
-  .gate-logo::before{content:'';width:30px;height:1px;background:var(--gold);}
-  .gate-title{
-    font-family:'DM Serif Display',serif;
-    font-size:2rem;color:var(--white);
-    line-height:1.2;margin-bottom:.6rem;
-  }
-  .gate-title span{color:var(--gold);}
-  .gate-sub{color:var(--muted);font-size:.9rem;line-height:1.6;margin-bottom:2rem;}
-  .gate-form{display:flex;flex-direction:column;gap:1rem;}
-  .gate-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-  .gate-field{display:flex;flex-direction:column;gap:.4rem;}
-  .gate-field label{
-    font-family:'JetBrains Mono',monospace;
-    font-size:.72rem;color:var(--gold);
-    letter-spacing:.1em;text-transform:uppercase;
-  }
-  .gate-field input,.gate-field textarea{
-    background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.12);
-    color:var(--white);
-    padding:.8rem 1rem;
-    font-family:'DM Sans',sans-serif;font-size:.9rem;
-    outline:none;
-    transition:border-color .2s;
-    resize:none;
-  }
-  .gate-field input:focus,.gate-field textarea:focus{border-color:var(--gold);}
-  .gate-field input::placeholder,.gate-field textarea::placeholder{color:var(--muted);}
-  .gate-submit{
-    margin-top:.5rem;
-    background:var(--gold);color:var(--navy);
-    padding:1rem;font-weight:700;font-size:.9rem;
-    letter-spacing:.06em;text-transform:uppercase;
-    border:none;cursor:pointer;
-    transition:background .2s,transform .2s;
-  }
-  .gate-submit:hover{background:var(--gold-light);transform:translateY(-2px);}
-  .gate-error{color:#e05c5c;font-size:.8rem;margin-top:-.5rem;display:none;}
-
 
   nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.2rem 4rem;display:flex;justify-content:space-between;align-items:center;background:rgba(15,27,61,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(232,160,32,.2);flex-wrap:wrap;gap:.5rem;}
   .nav-logo{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--gold);}
@@ -315,9 +189,9 @@
   footer{background:#080f22;color:var(--muted);text-align:center;padding:2rem;font-size:.8rem;letter-spacing:.05em;}
   footer span{color:var(--gold);}
   /* Curseur pointeur sur tous les éléments cliquables */
-  a, button, [onclick], .stat-visitors, .skill-card, .project-card,
-  .contact-card, .pdf-btn, .gate-submit, .btn-primary, .btn-outline,
-  .nav-links a, .vp-close, .pdf-modal-close, .ref-email {
+  a, button, [onclick], .skill-card, .project-card,
+  .contact-card, .pdf-btn, .btn-primary, .btn-outline,
+  .nav-links a, .pdf-modal-close, .ref-email {
     cursor:pointer !important;
   }
   .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
@@ -378,7 +252,6 @@
 
     /* About */
     .about-grid{grid-template-columns:1fr;gap:2rem;}
-    .gate-row{grid-template-columns:1fr;}
     .lang-grid{grid-template-columns:1fr 1fr;}
 
     /* Skills */
@@ -399,9 +272,6 @@
     .contact-card{min-width:unset;width:100%;}
     .refs-grid{flex-direction:column;align-items:stretch;}
     .ref-card{min-width:unset;}
-
-    /* Visitor panel */
-    .vp-dropdown{width:calc(100vw - 1rem);left:0;border-radius:0 8px 8px 0;}
   }
 
   /* ═══════════════════════════════════════════════
@@ -426,12 +296,6 @@
     .stat{padding:.6rem .8rem;}
     .stat-num{font-size:1.1rem;}
     .stat-label{font-size:.6rem;}
-
-    /* Gate (formulaire d'accueil) */
-    .gate-box{padding:2rem 1.2rem;}
-    .gate-title{font-size:1.6rem;}
-    .gate-row{grid-template-columns:1fr;}
-
     /* Info rows */
     .info-row{flex-direction:column;align-items:flex-start;gap:.3rem;}
     .info-row strong{min-width:unset;}
@@ -473,7 +337,6 @@
     section{padding:2.5rem .8rem;}
     #hero{padding:5rem .8rem 5rem;}
     .hero-name{font-size:1.9rem;}
-    .gate-box{padding:1.5rem .8rem;}
     .project-techs{gap:.3rem;}
     .project-tech{font-size:.62rem;padding:.2rem .4rem;}
   }
@@ -525,40 +388,29 @@
   }
   .pdf-btn:hover{background:rgba(232,160,32,.2);transform:translateY(-2px);}
   .pdf-btn svg{width:16px;height:16px;flex-shrink:0;}
+
+  .proj-filters{display:flex;flex-wrap:wrap;gap:.6rem;margin:-1.5rem 0 2.5rem;}
+  .pf{background:var(--white);border:1px solid var(--cream2);color:var(--navy);padding:.55rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;transition:background .2s,color .2s,border-color .2s;}
+  .pf:hover{border-color:var(--gold);}
+  .pf.active{background:var(--navy);color:var(--gold);border-color:var(--navy);}
+  .project-card.hidden{display:none;}
+  .project-sub{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--gold);letter-spacing:.1em;margin:.2rem 0 .5rem;}
+  .proj-more{text-align:center;margin-top:2.5rem;}
+  .more-btn{background:var(--navy);color:var(--gold);border:1px solid var(--navy);padding:.9rem 2rem;font-weight:600;font-size:.88rem;letter-spacing:.04em;transition:background .2s,transform .2s;}
+  .more-btn:hover{background:var(--navy2);transform:translateY(-2px);}
+  .pdf-modal-link{color:var(--muted);font-size:.78rem;text-decoration:none;margin-left:auto;margin-right:1rem;}
+  .pdf-modal-link:hover{color:var(--gold);}
+  .pf,.more-btn{cursor:pointer;}
+
+  .cv-text{color:var(--slate);max-width:560px;line-height:1.8;margin-bottom:2rem;}
+  .cv-dl{border-color:var(--navy);color:var(--navy);}
+  .cv-dl:hover{background:var(--navy);color:var(--gold);}
+  .lang-sw{display:flex;gap:.3rem;}
+  .lang-sw button{background:none;border:1px solid rgba(232,160,32,.35);color:var(--muted);padding:.3rem .6rem;font-size:.72rem;cursor:pointer;}
+  .lang-sw button.on{background:var(--gold);color:var(--navy);border-color:var(--gold);}
 </style>
 </head>
 <body>
-
-<!-- ── WELCOME GATE ── -->
-<div id="welcome-gate">
-  <div class="gate-box">
-    <div class="gate-logo">R. FAHO — Portfolio</div>
-    <h1 class="gate-title">Bienvenue sur<br>mon <span>Portfolio</span></h1>
-    <p class="gate-sub">Avant d'accéder au portfolio, merci de renseigner quelques informations. Cela m'aide à mieux connaître mes visiteurs.</p>
-    <div class="gate-form">
-      <div class="gate-row">
-        <div class="gate-field">
-          <label>Prénom *</label>
-          <input type="text" id="g-prenom" placeholder="Votre prénom" maxlength="40">
-        </div>
-        <div class="gate-field">
-          <label>Nom *</label>
-          <input type="text" id="g-nom" placeholder="Votre nom" maxlength="40">
-        </div>
-      </div>
-      <div class="gate-field">
-        <label>Lieu de résidence *</label>
-        <input type="text" id="g-residence" placeholder="Ville, Pays" maxlength="80">
-      </div>
-      <div class="gate-field">
-        <label>But de votre visite *</label>
-        <textarea id="g-but" rows="2" placeholder="Ex : Recrutement, collaboration, curiosité…" maxlength="200"></textarea>
-        <span class="gate-error" id="g-error">Veuillez remplir tous les champs.</span>
-      </div>
-      <button class="gate-submit" onclick="submitGate()">Accéder au portfolio →</button>
-    </div>
-  </div>
-</div>
 
 <nav>
   <div class="nav-logo">R. FAHO</div>
@@ -567,8 +419,10 @@
     <a href="#skills">Compétences</a>
     <a href="#projects">Projets</a>
     <a href="#experience">Expérience</a>
+    <a href="#cv">CV</a>
     <a href="#contact">Contact</a>
   </div>
+  <div class="lang-sw"><button data-l="fr" class="on">FR</button><button data-l="en">EN</button><button data-l="zh">中文</button></div>
 </nav>
 
 <!-- HERO -->
@@ -577,10 +431,11 @@
     <div class="hero-tag">Disponible pour opportunités</div>
     <h1 class="hero-name">Lomboko<br><span>Romaric</span> FAHO</h1>
     <p class="hero-title">// Statisticien · Informaticien · Data Analyst</p>
-    <p class="hero-desc">Titulaire d'une Licence professionnelle en Statistique–Informatique, passionné par l'analyse de données, la modélisation statistique et l'informatique appliquée. Basé à Bobo-Dioulasso, Burkina Faso.</p>
+    <p class="hero-desc">Titulaire d’une Licence professionnelle en Statistique–Informatique, actuellement en Master I Statistique Appliquée et Aide à la Décision à l’Université Nazi BONI. Je transforme des données de terrain en analyses fiables, de la collecte à la modélisation statistique, avec R et Excel VBA. Basé à Bobo-Dioulasso, Burkina Faso.</p>
     <div class="hero-buttons">
       <a href="#projects" class="btn-primary">Voir mes projets</a>
       <a href="#contact" class="btn-outline">Me contacter</a>
+      <a href="CV_Lomboko_Romaric_FAHO.pdf" download class="btn-outline cv-link">Télécharger mon CV</a>
     </div>
   </div>
   <div class="hero-right reveal">
@@ -595,25 +450,12 @@
              style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%;pointer-events:none;-webkit-user-drag:none;">
       </div>
       <div class="hero-stats">
-        <div class="stat"><span class="stat-num">8+</span><span class="stat-label">Projets</span></div>
+        <div class="stat"><span class="stat-num">14</span><span class="stat-label">Projets</span></div>
         <div class="stat"><span class="stat-num">10+</span><span class="stat-label">Outils</span></div>
-        <div class="stat stat-visitors" id="stat-visitors-btn" onclick="togglePanel()">
-          <span class="stat-num" id="hvb-num">0</span>
-          <span class="stat-label">Visiteurs ▾</span>
-        </div>
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Langues</span></div>
       </div>
 
-      <!-- DROPDOWN PANEL -->
-      <div id="visitor-panel" class="vp-dropdown">
-        <div class="vp-header">
-          <span class="vp-title">📊 Journal des visites</span>
-          <button onclick="resetVisits()" title="Réinitialiser" style="background:rgba(200,30,30,.15);color:#ff6b6b;border:1px solid rgba(200,30,30,.4);border-radius:4px;padding:.25rem .7rem;font-size:.75rem;cursor:pointer;margin-right:.5rem;">🗑 Reset</button><span class="vp-close" onclick="togglePanel(); event.stopPropagation()">✕</span>
-        </div>
-        <div class="vp-list" id="vp-list">
-          <div class="vp-empty">Chargement…</div>
-        </div>
-        <div class="vp-footer" id="vp-footer">—</div>
-      </div>
+      
     </div>
   </div>
 </section>
@@ -628,9 +470,10 @@
       <p>Mon objectif est d'intégrer un environnement académique et professionnel exigeant pour approfondir mes connaissances, développer une expertise de haut niveau et contribuer activement à la recherche et au développement.</p>
       <div class="about-info">
         <div class="info-row"><strong>Lieu</strong><span>Bobo-Dioulasso, Burkina Faso</span></div>
+        <div class="info-row"><strong>Master</strong><span>Master I Statistique Appliquée et Aide à la Décision (SAAD) — Université Nazi BONI (en cours)</span></div>
         <div class="info-row"><strong>Diplôme</strong><span>Licence en Statistique–Informatique — Université Nazi BONI (2025)</span></div>
         <div class="info-row"><strong>Tél.</strong><span>+226 55 53 28 24 / +226 63 90 63 02</span></div>
-        <div class="info-row"><strong>Email</strong><span><a href="mailto:faholombokoromaric@gmail.com" class="faholombokoromaric@gmail.com" data-cfemail="faholombokoromaric@gmail.com">faholombokoromaric@gmail.com</a></span></div>
+        <div class="info-row"><strong>Email</strong><span><a href="mailto:faholombokoromaric@gmail.com">faholombokoromaric@gmail.com</a></span></div>
       </div>
     </div>
     <div class="reveal">
@@ -648,8 +491,8 @@
         </div>
         <div class="lang-item">
           <div class="lang-name">Mandarin</div>
-          <div class="lang-bar"><div class="lang-fill" style="width:25%"></div></div>
-          <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">Niveau 2</div>
+          <div class="lang-bar"><div class="lang-fill" style="width:40%"></div></div>
+          <div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">HSK 3</div>
         </div>
       </div>
       <div style="margin-top:2rem">
@@ -682,10 +525,10 @@
 <section id="projects">
   <div class="section-label">03 — Projets</div>
   <h2 class="section-title">Travaux & Projets</h2>
-  <div class="projects-grid">
+  <div class="proj-filters" id="proj-filters"><button class="pf active" data-f="all">Tous</button><button class="pf" data-f="sante">Santé publique</button><button class="pf" data-f="agro">Agro-économie</button><button class="pf" data-f="env">Environnement</button><button class="pf" data-f="enquetes">Enquêtes</button><button class="pf" data-f="info">Informatique</button></div>
+  <div class="projects-grid" id="projects-grid">
 
-    <div class="project-card featured reveal">
-      <div class="project-header">
+    <div class="project-card featured reveal" data-cat="sante" data-o="1">      <div class="project-header">
         <div class="project-num">01</div>
         <span class="project-type">Rapport de fin de cycle</span>
       </div>
@@ -710,8 +553,7 @@
       </div>
     </div>
 
-    <div class="project-card reveal">
-      <div class="project-header"><div class="project-num">02</div><span class="project-type">Épidémiologie</span></div>
+    <div class="project-card reveal" data-cat="sante" data-o="5">      <div class="project-header"><div class="project-num">02</div><span class="project-type">Épidémiologie</span></div>
       <div class="project-body">
         <h3 class="project-title">Co-infection Paludisme–Dengue à Bobo-Dioulasso (2023)</h3>
         <p class="project-desc">Étude de prévalence de la co-infection dengue–paludisme et identification des facteurs de risque associés.</p>
@@ -725,8 +567,7 @@
       </div>
     </div>
 
-    <div class="project-card reveal">
-      <div class="project-header"><div class="project-num">03</div><span class="project-type">Analyse de données</span></div>
+    <div class="project-card reveal extra" data-cat="enquetes" data-o="10">      <div class="project-header"><div class="project-num">03</div><span class="project-type">Analyse de données</span></div>
       <div class="project-body">
         <h3 class="project-title">Pratiques sportives des étudiants — Université Nazi Boni</h3>
         <p class="project-desc">Enquête et analyse statistique des comportements sportifs des étudiants de l'Université Nazi Boni.</p>
@@ -740,8 +581,7 @@
       </div>
     </div>
 
-    <div class="project-card reveal">
-      <div class="project-header"><div class="project-num">04</div><span class="project-type">Économie agricole</span></div>
+    <div class="project-card reveal" data-cat="agro" data-o="4">      <div class="project-header"><div class="project-num">04</div><span class="project-type">Économie agricole</span></div>
       <div class="project-body">
         <h3 class="project-title">Rentabilité de la culture de la banane — Province du Houet</h3>
         <p class="project-desc">Analyse économique et financière de la filière banane dans les communes de Bobo-Dioulasso et Bama.</p>
@@ -754,8 +594,7 @@
       </div>
     </div>
 
-    <div class="project-card reveal">
-      <div class="project-header"><div class="project-num">05</div><span class="project-type">Enquête statistique</span></div>
+    <div class="project-card reveal extra" data-cat="enquetes" data-o="11">      <div class="project-header"><div class="project-num">05</div><span class="project-type">Enquête statistique</span></div>
       <div class="project-body">
         <h3 class="project-title">Satisfaction des étudiants — Université Nazi BONI</h3>
         <p class="project-desc">Enquête sur la satisfaction des étudiants vis-à-vis des services universitaires offerts.</p>
@@ -768,8 +607,7 @@
       </div>
     </div>
 
-    <div class="project-card reveal">
-      <div class="project-header"><div class="project-num">06</div><span class="project-type">Java — Développement</span></div>
+    <div class="project-card reveal extra" data-cat="info" data-o="12">      <div class="project-header"><div class="project-num">06</div><span class="project-type">Java — Développement</span></div>
       <div class="project-body">
         <h3 class="project-title">Calculatrice scientifique — Application Java</h3>
         <p class="project-desc">Application Java orientée objet avec interface graphique ergonomique pour opérations scientifiques avancées.</p>
@@ -782,8 +620,7 @@
       </div>
     </div>
 
-    <div class="project-card reveal">
-      <div class="project-header"><div class="project-num">07</div><span class="project-type">Excel VBA</span></div>
+    <div class="project-card extra reveal" data-cat="info" data-o="14">      <div class="project-header"><div class="project-num">07</div><span class="project-type">Excel VBA</span></div>
       <div class="project-body">
         <h3 class="project-title">Système de gestion de stock — Dépôt pharmaceutique</h3>
         <p class="project-desc">Outil Excel VBA complet pour la gestion de stock et des ventes d'un dépôt de pharmacie.</p>
@@ -797,8 +634,7 @@
       </div>
     </div>
 
-    <div class="project-card reveal">
-      <div class="project-header"><div class="project-num">08</div><span class="project-type">Développement Web</span></div>
+    <div class="project-card reveal extra" data-cat="info" data-o="13">      <div class="project-header"><div class="project-num">08</div><span class="project-type">Développement Web</span></div>
       <div class="project-body">
         <h3 class="project-title">Plateforme immobilière — Mise en contact locataires & acheteurs</h3>
         <p class="project-desc">Site web de vente et location immobilière permettant la mise en relation entre propriétaires et intéressés.</p>
@@ -811,7 +647,68 @@
       </div>
     </div>
 
+
+    <div class="project-card reveal" data-cat="agro" data-o="2">
+      <div class="project-header"><div class="project-num">02</div><span class="project-type">Agro-économie</span></div>
+      <div class="project-body">
+        <h3 class="project-title">Adoption des pratiques agroécologiques et performance économique des systèmes de production du poivron (<i>Capsicum annuum</i> L.) dans les zones péri-urbaines de Bobo-Dioulasso, région du Guiriko</h3>
+        <div class="project-sub">Objectifs</div><ul class="project-tasks"><li>Caractériser les producteurs et leurs systèmes</li><li>Comparer les performances économiques</li><li>Analyser les déterminants de l’adoption</li><li>Comparer les traitements en essai en station</li></ul>
+        <div class="project-sub">Méthodes</div><div class="project-techs"><span class="project-tech">Shapiro-Wilk</span><span class="project-tech">Wilcoxon-Mann-Whitney</span><span class="project-tech">χ² de Pearson</span><span class="project-tech">Régression SUR (rentabilité)</span><span class="project-tech">Régression logistique (AUC = 0,776)</span><span class="project-tech">R</span></div>
+      </div>
+    </div>
+
+    <div class="project-card reveal" data-cat="env" data-o="3">
+      <div class="project-header"><div class="project-num">03</div><span class="project-type">Environnement</span></div>
+      <div class="project-body">
+        <h3 class="project-title">Estimation des stocks de carbone des ligneux par type de formation végétale dans la forêt classée de Kua (Burkina Faso)</h3>
+        <div class="project-sub">Objectifs</div><ul class="project-tasks"><li>Estimer le stock de carbone des ligneux selon le type de formation (savane arborée et herbeuse, forêt claire, plantations de teck et gmelina, agrosystème)</li><li>Comparer les stocks entre formations, ramenés à l’hectare</li><li>Estimer le stock de carbone global de la forêt classée</li></ul>
+        <div class="project-sub">Méthodes</div><div class="project-techs"><span class="project-tech">Inventaire des ligneux</span><span class="project-tech">Stock de carbone individuel</span><span class="project-tech">Agrégation par formation</span><span class="project-tech">Standardisation à l’hectare</span><span class="project-tech">R</span></div>
+      </div>
+    </div>
+
+    <div class="project-card extra reveal" data-cat="sante" data-o="7">
+      <div class="project-header"><div class="project-num">07</div><span class="project-type">Santé publique</span></div>
+      <div class="project-body">
+        <h3 class="project-title">Rôle et implication de la nutrition dans la prise en charge des patients adultes : cas du CHR de Gaoua</h3><p class="project-desc">Analyser le rôle et l’implication de la nutrition dans la prise en charge des patients adultes au CHR de Gaoua.</p>
+        <div class="project-sub">Objectifs</div><ul class="project-tasks"><li>Caractériser la population d’étude (patients et personnel de santé : âge, genre, service, profil, IMC)</li><li>Évaluer les connaissances et perceptions sur la nutrition (patients et personnel)</li><li>Apprécier les attentes, les pratiques déclarées et les obstacles liés à la prise en charge nutritionnelle</li></ul>
+        <div class="project-sub">Méthodes</div><div class="project-techs"><span class="project-tech">R</span></div>
+      </div>
+    </div>
+
+    <div class="project-card extra reveal" data-cat="sante" data-o="8">
+      <div class="project-header"><div class="project-num">08</div><span class="project-type">Santé publique</span></div>
+      <div class="project-body">
+        <h3 class="project-title">Anomalies quantitatives de la lignée leucocytaire chez les femmes en âge de procréer (15–49 ans)</h3>
+        <div class="project-sub">Objectifs</div><ul class="project-tasks"><li>Évaluer la fréquence des anomalies quantitatives de la lignée leucocytaire</li><li>Identifier les types d’anomalies les plus courants</li><li>Analyser leur répartition selon l’âge des patientes</li></ul>
+        <div class="project-sub">Méthodes</div><div class="project-techs"><span class="project-tech">R</span></div>
+      </div>
+    </div>
+
+    <div class="project-card extra reveal" data-cat="sante" data-o="9">
+      <div class="project-header"><div class="project-num">09</div><span class="project-type">Santé publique</span></div>
+      <div class="project-body">
+        <h3 class="project-title">Facteurs associés à l’infertilité masculine à partir des résultats du spermogramme à Bobo-Dioulasso (2025)</h3>
+        <div class="project-sub">Objectifs</div><ul class="project-tasks"><li>Décrire les caractéristiques sociodémographiques et les autres caractéristiques étudiées</li><li>Estimer la fréquence de l’infertilité masculine observée</li><li>Identifier les facteurs indépendamment associés à l’infertilité masculine</li></ul>
+        <div class="project-sub">Méthodes</div><div class="project-techs"><span class="project-tech">Analyse descriptive</span><span class="project-tech">Analyse univariée</span><span class="project-tech">Modèle multivarié</span><span class="project-tech">R</span></div>
+      </div>
+    </div>
+
+    <div class="project-card reveal" data-cat="info" data-o="6">
+      <div class="project-header"><div class="project-num">06</div><span class="project-type">Excel VBA</span></div>
+      <div class="project-body">
+        <h3 class="project-title">Gestion de stock et suivi avec tableau de bord — Restaurant Cours des Saveurs, Bobo-Dioulasso</h3>
+        <p class="project-desc">Outil Excel VBA de suivi de l’activité d’un restaurant : ventes, dépenses, employés et résultats.</p>
+        <ul class="project-tasks">
+          <li>Base de données et saisie des ventes journalières et des dépenses</li>
+          <li>Enregistrement des employés avec leur salaire mensuel</li>
+          <li>Tableau de bord filtrable par semaine, mois ou année</li>
+          <li>Suivi des dépenses et des gains selon la période choisie</li>
+        </ul>
+        <div class="project-techs"><span class="project-tech">Excel</span><span class="project-tech">VBA</span><span class="project-tech">Tableau de bord</span><span class="project-tech">Base de données</span></div>
+      </div>
+    </div>
   </div>
+  <div class="proj-more"><button id="proj-more-btn" class="more-btn">Voir plus de projets</button></div>
 </section>
 
 <!-- EXPERIENCE & FORMATION -->
@@ -821,6 +718,12 @@
     <div>
       <h2 class="section-title">Expériences</h2>
       <div class="timeline reveal">
+        <div class="timeline-item">
+          <div class="timeline-date">Janvier – Août 2026</div>
+          <div class="timeline-title">Stagiaire de perfectionnement — Centre MURAZ</div>
+          <div class="timeline-place">📍 Bobo-Dioulasso, Burkina Faso</div>
+          <ul class="timeline-tasks"><li>Gestion de données</li><li>Formation de stagiaires et de médecins à l’utilisation de R</li></ul>
+        </div>
         <div class="timeline-item">
           <div class="timeline-date">Mars – Août 2025</div>
           <div class="timeline-title">Stagiaire — Centre MURAZ</div>
@@ -849,6 +752,7 @@
     <div>
       <h2 class="section-title">Formation</h2>
       <div class="formation-grid reveal">
+        <div class="formation-card" style="grid-column:span 2"><div class="formation-year">2025 — en cours</div><div class="formation-degree">Master I Statistique Appliquée et Aide à la Décision (SAAD)</div><div class="formation-school">Université Nazi BONI, Bobo-Dioulasso</div></div>
         <div class="formation-card">
           <div class="formation-year">2022 — 2025</div>
           <div class="formation-degree">Licence Statistique–Informatique</div>
@@ -873,9 +777,20 @@
   </div>
 </section>
 
+<!-- CV -->
+<section id="cv" style="background:var(--cream)">
+  <div class="section-label">05 — CV</div>
+  <h2 class="section-title">Mon CV</h2>
+  <p class="cv-text">Mon curriculum vitae complet : parcours, compétences et projets.</p>
+  <div class="hero-buttons">
+    <a href="CV_Lomboko_Romaric_FAHO.pdf" target="_blank" rel="noopener" class="btn-primary cv-link">Consulter le CV</a>
+    <a href="CV_Lomboko_Romaric_FAHO.pdf" download class="btn-outline cv-dl cv-link">Télécharger le CV (PDF)</a>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
-  <div class="section-label">05 — Contact</div>
+  <div class="section-label">06 — Contact</div>
   <h2 class="section-title">Travaillons ensemble</h2>
   <p class="contact-sub">Disponible pour des opportunités académiques, des collaborations de recherche ou des projets data. N'hésitez pas à me contacter !</p>
   <div class="contact-cards reveal">
@@ -902,24 +817,24 @@
       <div class="ref-card">
         <div class="ref-name">Dr M. A. Serge SOMDA</div>
         <div class="ref-role">Biostatisticien — Centre MURAZ</div>
-        <div class="ref-contact">📧 <a href="mailto:manituo@gmail.com" class="ref-email">manituo@gmail.com</a><br>📱 <a href="tel:+22670443322" class="ref-email">+226 70 44 33 22</a></div>
       </div>
       <div class="ref-card">
         <div class="ref-name">Mr Issouf Traoré</div>
         <div class="ref-role">Ingénieur d'aide à la décision</div>
-        <div class="ref-contact">📧 <a href="mailto:issouftraore521@gmail.com" class="ref-email">issouftraore521@gmail.com</a><br>📱 <a href="tel:+22677531444" class="ref-email">+226 77 53 14 44</a></div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-name">Dr Eric Dabonné</div>
+        <div class="ref-role">Biostatisticien — Centre MURAZ</div>
       </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <p>© 2025 <span>Lomboko Romaric FAHO</span> — Statisticien · Informaticien · Bobo-Dioulasso, Burkina Faso</p>
+  <p>© 2026 <span>Lomboko Romaric FAHO</span> — Statisticien · Informaticien · Bobo-Dioulasso, Burkina Faso</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ── CURSOR ──
-;
+<script>
 
 // ── SCROLL REVEAL ──
 const obs = new IntersectionObserver(entries => {
@@ -937,153 +852,49 @@ window.addEventListener('scroll', () => {
   });
 });
 
-// ── WELCOME GATE ──
-function submitGate() {
-  const prenom    = document.getElementById('g-prenom').value.trim();
-  const nom       = document.getElementById('g-nom').value.trim();
-  const residence = document.getElementById('g-residence').value.trim();
-  const but       = document.getElementById('g-but').value.trim();
-  const errEl     = document.getElementById('g-error');
-
-  if (!prenom || !nom || !residence || !but) {
-    errEl.style.display = 'block';
-    return;
+// ── FILTRES PROJETS ──
+(function(){
+  const grid=document.getElementById('projects-grid');
+  const cards=[...grid.querySelectorAll('.project-card')].sort((a,b)=>a.dataset.o-b.dataset.o);
+  const btns=document.querySelectorAll('.pf'), more=document.getElementById('proj-more-btn');
+  let f='all', expanded=false;
+  cards.forEach(c=>c.style.order=c.dataset.o);
+  function apply(){
+    let n=0;
+    cards.forEach(c=>{
+      const ok=f==='all'?(expanded||!c.classList.contains('extra')):c.dataset.cat===f;
+      c.classList.toggle('hidden',!ok);
+      if(ok){c.classList.add('visible');c.querySelector('.project-num').textContent=String(++n).padStart(2,'0');}
+    });
+    more.style.display=f==='all'?'inline-block':'none';
+    more.textContent=(window.tr||(x=>x))(expanded?'Voir moins':'Voir plus de projets');
   }
-  errEl.style.display = 'none';
+  btns.forEach(b=>b.addEventListener('click',()=>{f=b.dataset.f;btns.forEach(x=>x.classList.toggle('active',x===b));apply();}));
+  more.addEventListener('click',()=>{expanded=!expanded;apply();});
+  window.__apply=apply;apply();
+})();
 
-  // Hide gate with fade
-  const gate = document.getElementById('welcome-gate');
-  gate.style.transition = 'opacity .6s ease';
-  gate.style.opacity = '0';
-  setTimeout(() => gate.style.display = 'none', 620);
-
-  // Record visit with form data
-  recordVisit({ prenom, nom, residence, but });
-}
-
-// Allow Enter key on last field
-document.getElementById('g-but').addEventListener('keydown', function(e){
-  if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); submitGate(); }
-});
-
-// Check if already visited this session (skip gate)
-if (sessionStorage.getItem('visit_recorded')) {
-  document.getElementById('welcome-gate').style.display = 'none';
-}
-
-// ── VISITOR TRACKER ──
-const STORAGE_KEY = 'portfolio_visits_v2';
-const MAX_VISITS  = 200;
-// ⚠️  CHANGEZ CE MOT DE PASSE pour protéger la liste
-const OWNER_PWD   = 'Roma55532824.';
-
-function flagEmoji(country) {
-  const map = {
-    'Burkina Faso':'🇧🇫','France':'🇫🇷','Côte d\'Ivoire':'🇨🇮','Mali':'🇲🇱',
-    'Sénégal':'🇸🇳','Cameroun':'🇨🇲','Togo':'🇹🇬','Bénin':'🇧🇯',
-    'Niger':'🇳🇪','Guinée':'🇬🇳','Germany':'🇩🇪','United States':'🇺🇸',
-    'Canada':'🇨🇦','Belgium':'🇧🇪','Switzerland':'🇨🇭','Morocco':'🇲🇦',
-    'Tunisia':'🇹🇳','Algeria':'🇩🇿','Senegal':'🇸🇳','Ivory Coast':'🇨🇮',
-    'Ghana':'🇬🇭','Nigeria':'🇳🇬','China':'🇨🇳','Japan':'🇯🇵','Spain':'🇪🇸',
-    'Italy':'🇮🇹','United Kingdom':'🇬🇧','Netherlands':'🇳🇱',
-  };
-  return map[country] || '🌍';
-}
-
-function formatDate(ts) {
-  const d = new Date(ts);
-  const days = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
-  const months = ['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
-  return `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()} à ${String(d.getHours()).padStart(2,'0')}h${String(d.getMinutes()).padStart(2,'0')}`;
-}
-
-function loadVisits() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
-  catch { return []; }
-}
-function saveVisits(v) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(v));
-}
-
-function resetVisits() {
-  if (!confirm('Réinitialiser la liste des visiteurs ?')) return;
-  localStorage.removeItem(STORAGE_KEY);
-  document.getElementById('hvb-num').textContent = '0';
-  renderPanel([]);
-}
-
-function renderPanel(visits) {
-  const list    = document.getElementById('vp-list');
-  const footer  = document.getElementById('vp-footer');
-  const hvbNum  = document.getElementById('hvb-num');
-  if (hvbNum) hvbNum.textContent = visits.length;
-  if (footer) footer.textContent = visits.length + ' visite(s) enregistrée(s)';
-  if (!visits.length) {
-    list.innerHTML = '<div class="vp-empty">Aucune visite enregistrée pour l\'instant.</div>';
-    return;
+// ── LANGUES ──
+(function(){
+  const D=[["Profil", "Profile", "简介"], ["Compétences", "Skills", "技能"], ["Projets", "Projects", "项目"], ["Expérience", "Experience", "经历"], ["Contact", "Contact", "联系"], ["Disponible pour opportunités", "Open to opportunities", "欢迎合作机会"], ["// Statisticien · Informaticien · Data Analyst", "// Statistician · Computer Scientist · Data Analyst", "// 统计师 · 信息技术 · 数据分析"], ["Titulaire d’une Licence professionnelle en Statistique–Informatique, actuellement en Master I Statistique Appliquée et Aide à la Décision à l’Université Nazi BONI. Je transforme des données de terrain en analyses fiables, de la collecte à la modélisation statistique, avec R et Excel VBA. Basé à Bobo-Dioulasso, Burkina Faso.", "Holder of a professional Bachelor’s degree in Statistics and Computer Science, currently in the first year of the Master’s in Applied Statistics and Decision Support at Nazi BONI University. I turn field data into reliable analyses, from data collection to statistical modelling, using R and Excel VBA. Based in Bobo-Dioulasso, Burkina Faso.", "统计与信息学职业学士，现于纳齐·博尼大学攻读应用统计与决策支持硕士一年级。我借助 R 和 Excel VBA，把一线数据转化为可靠的分析，涵盖数据收集到统计建模。常驻布基纳法索博博迪乌拉索。"], ["Voir mes projets", "View my projects", "查看我的项目"], ["Me contacter", "Contact me", "联系我"], ["Télécharger mon CV", "Download my CV", "下载我的简历"], ["Outils", "Tools", "工具"], ["Langues", "Languages", "语言"], ["01 — Profil", "01 — Profile", "01 — 简介"], ["À propos de moi", "About me", "关于我"], ["Jeune professionnel burkinabè, rigoureux et passionné par la statistique, l'analyse des données et l'informatique. Mon parcours combine des compétences solides en modélisation statistique avancée avec une maîtrise des outils informatiques modernes.", "Young Burkinabè professional, rigorous and passionate about statistics, data analysis and computing. My background combines strong skills in advanced statistical modelling with command of modern computing tools.", "来自布基纳法索的年轻专业人士，严谨，热爱统计学、数据分析和信息技术。我的背景将扎实的高级统计建模能力与对现代信息工具的熟练掌握结合在一起。"], ["Mon objectif est d'intégrer un environnement académique et professionnel exigeant pour approfondir mes connaissances, développer une expertise de haut niveau et contribuer activement à la recherche et au développement.", "My goal is to join a demanding academic and professional environment to deepen my knowledge, build high-level expertise and contribute actively to research and development.", "我的目标是进入要求严格的学术与职业环境，深化知识，培养高水平专业能力，并积极参与研究与发展。"], ["Lieu", "Location", "地点"], ["Master", "Master’s", "硕士"], ["Diplôme", "Degree", "学位"], ["Tél.", "Phone", "电话"], ["Bobo-Dioulasso, Burkina Faso", "Bobo-Dioulasso, Burkina Faso", "布基纳法索，博博迪乌拉索"], ["Master I Statistique Appliquée et Aide à la Décision (SAAD) — Université Nazi BONI (en cours)", "Master’s Year 1 in Applied Statistics and Decision Support (SAAD) — Nazi BONI University (ongoing)", "应用统计与决策支持（SAAD）硕士一年级 — 纳齐·博尼大学（在读）"], ["Licence en Statistique–Informatique — Université Nazi BONI (2025)", "Bachelor’s in Statistics and Computer Science — Nazi BONI University (2025)", "统计与信息学学士 — 纳齐·博尼大学（2025）"], ["Langues & Soft Skills", "Languages & Soft Skills", "语言与软技能"], ["Français", "French", "法语"], ["Anglais", "English", "英语"], ["Mandarin", "Mandarin", "普通话"], ["Langue maternelle", "Native language", "母语"], ["Niveau intermédiaire", "Intermediate level", "中级水平"], ["HSK 3", "HSK 3", "HSK 3 级"], ["Rigueur scientifique", "Scientific rigour", "科学严谨"], ["Esprit analytique", "Analytical mind", "分析思维"], ["Autonomie", "Autonomy", "独立自主"], ["Travail en équipe", "Teamwork", "团队合作"], ["Curiosité intellectuelle", "Intellectual curiosity", "求知欲"], ["Adaptabilité", "Adaptability", "适应能力"], ["02 — Compétences", "02 — Skills", "02 — 技能"], ["Expertise technique", "Technical expertise", "技术专长"], ["Statistiques & Maths", "Statistics & Maths", "统计与数学"], ["Analyse de données", "Data analysis", "数据分析"], ["Programmation", "Programming", "编程"], ["Logiciels statistiques", "Statistical software", "统计软件"], ["Analyse spatiale & Épidémio.", "Spatial analysis & Epidemiology", "空间分析与流行病学"], ["Développement web & apps", "Web & app development", "网页与应用开发"], ["03 — Projets", "03 — Projects", "03 — 项目"], ["Travaux & Projets", "Work & Projects", "作品与项目"], ["Tous", "All", "全部"], ["Santé publique", "Public health", "公共卫生"], ["Agro-économie", "Agro-economics", "农业经济"], ["Environnement", "Environment", "环境"], ["Enquêtes", "Surveys", "调查"], ["Informatique", "Computing", "信息技术"], ["Voir plus de projets", "See more projects", "查看更多项目"], ["Voir moins", "See less", "收起"], ["Objectifs", "Objectives", "目标"], ["Méthodes", "Methods", "方法"], ["Rapport de fin de cycle", "Final-year report", "毕业报告"], ["Épidémiologie", "Epidemiology", "流行病学"], ["Économie agricole", "Agricultural economics", "农业经济学"], ["Enquête statistique", "Statistical survey", "统计调查"], ["Java — Développement", "Java — Development", "Java — 开发"], ["Développement Web", "Web development", "网站开发"], ["Analyse spatio-temporelle de la dengue au Burkina Faso (2020–2024)", "Spatio-temporal analysis of dengue in Burkina Faso (2020–2024)", "布基纳法索登革热时空分析（2020–2024）"], ["Co-infection Paludisme–Dengue à Bobo-Dioulasso (2023)", "Malaria–Dengue co-infection in Bobo-Dioulasso (2023)", "博博迪乌拉索疟疾—登革热合并感染（2023）"], ["Pratiques sportives des étudiants — Université Nazi Boni", "Students’ sports practices — Nazi Boni University", "学生体育运动情况 — 纳齐·博尼大学"], ["Rentabilité de la culture de la banane — Province du Houet", "Profitability of banana farming — Houet Province", "香蕉种植盈利能力 — 韦省"], ["Satisfaction des étudiants — Université Nazi BONI", "Student satisfaction — Nazi BONI University", "学生满意度 — 纳齐·博尼大学"], ["Calculatrice scientifique — Application Java", "Scientific calculator — Java application", "科学计算器 — Java 应用"], ["Système de gestion de stock — Dépôt pharmaceutique", "Stock management system — Pharmacy depot", "库存管理系统 — 药品仓库"], ["Plateforme immobilière — Mise en contact locataires & acheteurs", "Real-estate platform — Connecting tenants & buyers", "房地产平台 — 连接租户与买家"], ["Gestion de stock et suivi avec tableau de bord — Restaurant Cours des Saveurs, Bobo-Dioulasso", "Stock management and tracking with dashboard — Cours des Saveurs restaurant, Bobo-Dioulasso", "库存管理与跟踪仪表板 — 博博迪乌拉索 Cours des Saveurs 餐厅"], ["Adoption des pratiques agroécologiques et performance économique des systèmes de production du poivron (", "Adoption of agroecological practices and economic performance of pepper (", "胡椒生产系统中农业生态实践的采用与经济绩效（"], ["L.) dans les zones péri-urbaines de Bobo-Dioulasso, région du Guiriko", "L.) production systems in the peri-urban areas of Bobo-Dioulasso, Guiriko region", "L.）— 博博迪乌拉索城郊地区，吉里科大区"], ["Estimation des stocks de carbone des ligneux par type de formation végétale dans la forêt classée de Kua (Burkina Faso)", "Estimation of woody-plant carbon stocks by vegetation type in the Kua classified forest (Burkina Faso)", "布基纳法索夸保护林中不同植被类型木本植物碳储量估算"], ["Rôle et implication de la nutrition dans la prise en charge des patients adultes : cas du CHR de Gaoua", "Role and involvement of nutrition in the care of adult patients: the case of Gaoua Regional Hospital", "营养在成年患者护理中的作用与参与：以高阿地区医院为例"], ["Anomalies quantitatives de la lignée leucocytaire chez les femmes en âge de procréer (15–49 ans)", "Quantitative white blood cell abnormalities in women of reproductive age (15–49 years)", "育龄妇女（15–49岁）白细胞系定量异常"], ["Facteurs associés à l’infertilité masculine à partir des résultats du spermogramme à Bobo-Dioulasso (2025)", "Factors associated with male infertility based on semen analysis results in Bobo-Dioulasso (2025)", "基于精液分析结果的男性不育相关因素，博博迪乌拉索（2025）"], ["04 — Parcours", "04 — Background", "04 — 经历"], ["Expériences", "Experience", "工作经历"], ["Formation", "Education", "教育背景"], ["Janvier – Août 2026", "January – August 2026", "2026年1月–8月"], ["Mars – Août 2025", "March – August 2025", "2025年3月–8月"], ["Janvier 2025", "January 2025", "2025年1月"], ["Stagiaire de perfectionnement — Centre MURAZ", "Advanced trainee — MURAZ Centre", "进修实习生 — MURAZ 中心"], ["Stagiaire — Centre MURAZ", "Intern — MURAZ Centre", "实习生 — MURAZ 中心"], ["Enquêteur — Université Nazi BONI", "Survey enumerator — Nazi BONI University", "调查员 — 纳齐·博尼大学"], ["📍 Bobo-Dioulasso, Burkina Faso", "📍 Bobo-Dioulasso, Burkina Faso", "📍 布基纳法索，博博迪乌拉索"], ["📍 Section CMGD, Bobo-Dioulasso", "📍 CMGD Section, Bobo-Dioulasso", "📍 CMGD 部门，博博迪乌拉索"], ["Gestion de données", "Data management", "数据管理"], ["Formation de stagiaires et de médecins à l’utilisation de R", "Training of trainees and physicians in the use of R", "培训实习生和医生使用 R"], ["2025 — en cours", "2025 — ongoing", "2025 — 在读"], ["Master I Statistique Appliquée et Aide à la Décision (SAAD)", "Master’s Year 1 in Applied Statistics and Decision Support (SAAD)", "应用统计与决策支持（SAAD）硕士一年级"], ["Université Nazi BONI, Bobo-Dioulasso", "Nazi BONI University, Bobo-Dioulasso", "纳齐·博尼大学，博博迪乌拉索"], ["Licence Statistique–Informatique", "Bachelor’s in Statistics & Computer Science", "统计与信息学学士"], ["Baccalauréat Scientifique (Série D)", "Scientific Baccalaureate (Series D)", "理科高中毕业会考（D 系列）"], ["05 — CV", "05 — CV", "05 — 简历"], ["Mon CV", "My CV", "我的简历"], ["Mon curriculum vitae complet : parcours, compétences et projets.", "My full curriculum vitae: background, skills and projects.", "我的完整简历：经历、技能与项目。"], ["Consulter le CV", "View CV", "查看简历"], ["Télécharger le CV (PDF)", "Download CV (PDF)", "下载简历（PDF）"], ["06 — Contact", "06 — Contact", "06 — 联系"], ["Travaillons ensemble", "Let’s work together", "携手合作"], ["Téléphone", "Phone", "电话"], ["Localisation", "Location", "所在地"], ["Références professionnelles", "Professional references", "职业推荐人"], ["Biostatisticien — Centre MURAZ", "Biostatistician — MURAZ Centre", "生物统计师 — MURAZ 中心"], ["Ingénieur d'aide à la décision", "Decision-support engineer", "决策支持工程师"], ["— Statisticien · Informaticien · Bobo-Dioulasso, Burkina Faso", "— Statistician · Computer Scientist · Bobo-Dioulasso, Burkina Faso", "— 统计师 · 信息技术 · 布基纳法索博博迪乌拉索"], ["Disponible pour des opportunités académiques, des collaborations de recherche ou des projets data. N'hésitez pas à me contacter !", "Available for academic opportunities, research collaborations and data projects. Feel free to get in touch!", "欢迎学术机会、科研合作与数据项目。请随时联系我！"], ["Soft Skills", "Soft skills", "软技能"], ["Email", "Email", "邮箱"], ["Probabilités", "Probability", "概率论"], ["Algèbre linéaire", "Linear algebra", "线性代数"], ["Statistiques descriptives", "Descriptive statistics", "描述统计"], ["Statistiques inférentielles", "Inferential statistics", "推断统计"], ["Échantillonnage", "Sampling", "抽样"], ["Analyse de variance", "Analysis of variance", "方差分析"], ["Analyse multivariée", "Multivariate analysis", "多元分析"], ["Séries temporelles", "Time series", "时间序列"], ["Modélisation stat.", "Statistical modelling", "统计建模"], ["Régression logistique", "Logistic regression", "逻辑回归"], ["Régression linéaire", "Linear regression", "线性回归"], ["ACM", "MCA", "多重对应分析"], ["Analyse spatiale", "Spatial analysis", "空间分析"], ["Cartographie", "Cartography", "制图"], ["SIG", "GIS", "地理信息系统"], ["Régression binomiale négative", "Negative binomial regression", "负二项回归"], ["Effets mixtes", "Mixed effects", "混合效应"], ["Données épidémio.", "Epidemiological data", "流行病学数据"], ["Gestion BDD", "Database management", "数据库管理"], ["Interface ergonomique", "User-friendly interface", "友好界面"], ["Stage de 6 mois au Centre MURAZ — Section CMGD. Analyse sur les 70 districts sanitaires du Burkina Faso. Concentration forte dans la région du Centre (Baskuy, Bogodogo, Nongr-Massom) et incidence modérée dans Boulmiougou, Koudougou, Ziniaré.", "6-month internship at the MURAZ Centre — CMGD Section. Analysis across the 70 health districts of Burkina Faso. High concentration in the Centre region (Baskuy, Bogodogo, Nongr-Massom) and moderate incidence in Boulmiougou, Koudougou and Ziniaré.", "在 MURAZ 中心 CMGD 部门实习 6 个月。分析覆盖布基纳法索 70 个卫生区。病例高度集中于中部大区（Baskuy、Bogodogo、Nongr-Massom），Boulmiougou、Koudougou、Ziniaré 发病率中等。"], ["Régression binomiale négative à effets mixtes : température ×2,33 l'incidence (p<0,001)", "Mixed-effects negative binomial regression: temperature multiplies incidence by 2.33 (p<0.001)", "混合效应负二项回归：温度使发病率增至 2.33 倍（p<0.001）"], ["Précipitations +11% d'incidence ; vent fort −35,8% d'incidence (retard 2 mois)", "Rainfall: +11% incidence; strong wind: −35.8% incidence (2-month lag)", "降雨：发病率 +11%；强风：发病率 −35.8%（滞后 2 个月）"], ["Analyse cartographique et disparités géographiques sur 70 districts", "Mapping analysis and geographic disparities across 70 districts", "70 个卫生区的地图分析与地理差异"], ["Rédaction scientifique complète sous LaTeX", "Full scientific writing in LaTeX", "使用 LaTeX 完成完整科学写作"], ["Modèles mixtes", "Mixed models", "混合模型"], ["Lire le rapport complet (PDF)", "Read the full report (PDF)", "阅读完整报告（PDF）"], ["Étude de prévalence de la co-infection dengue–paludisme et identification des facteurs de risque associés.", "Prevalence study of dengue–malaria co-infection and identification of associated risk factors.", "登革热—疟疾合并感染的患病率研究及相关危险因素识别。"], ["Fréquence des cas de paludisme (goutte épaisse)", "Frequency of malaria cases (thick blood smear)", "疟疾病例频率（厚血涂片）"], ["Fréquence des cas de dengue (tests sérologiques)", "Frequency of dengue cases (serological tests)", "登革热病例频率（血清学检测）"], ["Identification des cas de co-infection", "Identification of co-infection cases", "合并感染病例识别"], ["Facteurs de risque associés à la co-infection", "Risk factors associated with co-infection", "合并感染相关危险因素"], ["Enquête et analyse statistique des comportements sportifs des étudiants de l'Université Nazi Boni.", "Survey and statistical analysis of the sports behaviour of Nazi Boni University students.", "对纳齐·博尼大学学生体育行为的调查与统计分析。"], ["Nettoyage et préparation des données", "Data cleaning and preparation", "数据清理与准备"], ["Analyses descriptives et inférentielles", "Descriptive and inferential analyses", "描述性与推断性分析"], ["Analyse des Correspondances Multiples (ACM)", "Multiple Correspondence Analysis (MCA)", "多重对应分析（MCA）"], ["Régression logistique sur la pratique du sport", "Logistic regression on sports practice", "体育运动参与的逻辑回归"], ["Analyse économique et financière de la filière banane dans les communes de Bobo-Dioulasso et Bama.", "Economic and financial analysis of the banana value chain in the municipalities of Bobo-Dioulasso and Bama.", "博博迪乌拉索与巴马市镇香蕉产业链的经济与财务分析。"], ["Évaluation des coûts de production", "Assessment of production costs", "生产成本评估"], ["Identification des contraintes techniques et financières", "Identification of technical and financial constraints", "技术与资金限制因素识别"], ["Proposition de stratégies d'amélioration", "Proposal of improvement strategies", "改进策略建议"], ["Analyse économique", "Economic analysis", "经济分析"], ["Enquête sur la satisfaction des étudiants vis-à-vis des services universitaires offerts.", "Survey on student satisfaction with the university services offered.", "关于学生对高校所提供服务满意度的调查。"], ["Conception du questionnaire et collecte", "Questionnaire design and data collection", "问卷设计与数据收集"], ["Analyse descriptive des résultats", "Descriptive analysis of results", "结果的描述性分析"], ["Interprétation et rédaction du rapport", "Interpretation and report writing", "结果解读与报告撰写"], ["Application Java orientée objet avec interface graphique ergonomique pour opérations scientifiques avancées.", "Object-oriented Java application with a user-friendly graphical interface for advanced scientific operations.", "面向对象的 Java 应用，配有友好的图形界面，可进行高级科学运算。"], ["Architecture MVC (Model-View-Controller)", "MVC architecture (Model-View-Controller)", "MVC 架构（模型—视图—控制器）"], ["Opérations scientifiques avancées", "Advanced scientific operations", "高级科学运算"], ["Interface avec Scene Builder + stylisation CSS", "Interface built with Scene Builder + CSS styling", "使用 Scene Builder 构建界面并以 CSS 设计样式"], ["Outil Excel VBA complet pour la gestion de stock et des ventes d'un dépôt de pharmacie.", "Complete Excel VBA tool for managing the stock and sales of a pharmacy depot.", "用于药房仓库库存和销售管理的完整 Excel VBA 工具。"], ["Enregistrement des produits en base de données", "Recording of products in a database", "产品数据库登记"], ["Gestion des ventes avec contrôle des quantités", "Sales management with quantity control", "带数量控制的销售管理"], ["Alertes automatiques de rupture de stock", "Automatic stock-out alerts", "缺货自动提醒"], ["Rapports récapitulatifs journaliers, mensuels, annuels", "Daily, monthly and annual summary reports", "日、月、年汇总报告"], ["Base de données", "Database", "数据库"], ["Site web de vente et location immobilière permettant la mise en relation entre propriétaires et intéressés.", "Real-estate sales and rental website connecting owners with interested parties.", "房产买卖与租赁网站，连接业主与有意向者。"], ["Publication de biens avec photos (vente/location)", "Property listings with photos (sale/rental)", "发布带照片的房源（出售/出租）"], ["Interface de contact propriétaire–acheteur/locataire", "Owner–buyer/tenant contact interface", "业主与买家/租户联系界面"], ["Gestion des annonces et des utilisateurs", "Management of listings and users", "房源与用户管理"], ["Caractériser les producteurs et leurs systèmes", "Characterise the producers and their systems", "描述生产者及其生产系统"], ["Comparer les performances économiques", "Compare economic performance", "比较经济绩效"], ["Analyser les déterminants de l’adoption", "Analyse the determinants of adoption", "分析采用的决定因素"], ["Comparer les traitements en essai en station", "Compare treatments in station trials", "比较试验站试验中的处理"], ["Régression SUR (rentabilité)", "SUR regression (profitability)", "SUR 回归（盈利能力）"], ["Régression logistique (AUC = 0,776)", "Logistic regression (AUC = 0.776)", "逻辑回归（AUC = 0.776）"], ["Estimer le stock de carbone des ligneux selon le type de formation (savane arborée et herbeuse, forêt claire, plantations de teck et gmelina, agrosystème)", "Estimate the carbon stock of woody plants by vegetation type (wooded and grassy savanna, open forest, teak and gmelina plantations, agrosystem)", "按植被类型（有树草原与草本草原、疏林、柚木和云南石梓人工林、农业系统）估算木本植物碳储量"], ["Comparer les stocks entre formations, ramenés à l’hectare", "Compare stocks between vegetation types, expressed per hectare", "比较各植被类型的碳储量（折算为每公顷）"], ["Estimer le stock de carbone global de la forêt classée", "Estimate the overall carbon stock of the classified forest", "估算保护林的总碳储量"], ["Inventaire des ligneux", "Inventory of woody plants", "木本植物清查"], ["Stock de carbone individuel", "Individual carbon stock", "单株碳储量"], ["Agrégation par formation", "Aggregation by vegetation type", "按植被类型汇总"], ["Standardisation à l’hectare", "Standardisation per hectare", "按公顷标准化"], ["Analyser le rôle et l’implication de la nutrition dans la prise en charge des patients adultes au CHR de Gaoua.", "Analyse the role and involvement of nutrition in the care of adult patients at Gaoua Regional Hospital (CHR).", "分析营养在高阿地区医院（CHR）成年患者护理中的作用与参与。"], ["Caractériser la population d’étude (patients et personnel de santé : âge, genre, service, profil, IMC)", "Characterise the study population (patients and health staff: age, gender, department, profile, BMI)", "描述研究人群特征（患者与医务人员：年龄、性别、科室、职业背景、BMI）"], ["Évaluer les connaissances et perceptions sur la nutrition (patients et personnel)", "Assess knowledge and perceptions about nutrition (patients and staff)", "评估对营养的认知与看法（患者与医务人员）"], ["Apprécier les attentes, les pratiques déclarées et les obstacles liés à la prise en charge nutritionnelle", "Assess expectations, reported practices and obstacles related to nutritional care", "评估对营养护理的期望、自述做法及相关障碍"], ["Évaluer la fréquence des anomalies quantitatives de la lignée leucocytaire", "Assess the frequency of quantitative abnormalities of the white blood cell lineage", "评估白细胞系定量异常的发生频率"], ["Identifier les types d’anomalies les plus courants", "Identify the most common types of abnormalities", "识别最常见的异常类型"], ["Analyser leur répartition selon l’âge des patientes", "Analyse their distribution by patient age", "分析其按患者年龄的分布"], ["Décrire les caractéristiques sociodémographiques et les autres caractéristiques étudiées", "Describe the sociodemographic and other characteristics studied", "描述社会人口学特征及其他研究特征"], ["Estimer la fréquence de l’infertilité masculine observée", "Estimate the observed frequency of male infertility", "估算男性不育的观察频率"], ["Identifier les facteurs indépendamment associés à l’infertilité masculine", "Identify the factors independently associated with male infertility", "识别与男性不育独立相关的因素"], ["Analyse descriptive", "Descriptive analysis", "描述性分析"], ["Analyse univariée", "Univariate analysis", "单变量分析"], ["Modèle multivarié", "Multivariate model", "多变量模型"], ["Outil Excel VBA de suivi de l’activité d’un restaurant : ventes, dépenses, employés et résultats.", "Excel VBA tool for monitoring a restaurant’s activity: sales, expenses, employees and results.", "用于跟踪餐厅经营情况的 Excel VBA 工具：销售、支出、员工与业绩。"], ["Base de données et saisie des ventes journalières et des dépenses", "Database and entry of daily sales and expenses", "数据库及每日销售与支出录入"], ["Enregistrement des employés avec leur salaire mensuel", "Employee records with monthly salaries", "员工及其月薪登记"], ["Tableau de bord filtrable par semaine, mois ou année", "Dashboard filterable by week, month or year", "可按周、月或年筛选的仪表板"], ["Suivi des dépenses et des gains selon la période choisie", "Tracking of expenses and gains for the chosen period", "按所选时段跟踪支出与收益"], ["Tableau de bord", "Dashboard", "仪表板"], ["Traitement de données épidémiologiques — 70 districts sanitaires", "Processing of epidemiological data — 70 health districts", "流行病学数据处理 — 70 个卫生区"], ["Analyse spatio-temporelle et modélisation statistique avancée", "Spatio-temporal analysis and advanced statistical modelling", "时空分析与高级统计建模"], ["Étude des variables climatiques sur l'incidence de la dengue", "Study of the effect of climate variables on dengue incidence", "气候变量对登革热发病率影响的研究"], ["Régressions, séries temporelles, analyse multivariée", "Regressions, time series, multivariate analysis", "回归、时间序列、多元分析"], ["Production d'indicateurs pour l'aide à la décision en santé publique", "Production of indicators for public-health decision support", "为公共卫生决策支持生成指标"], ["Rédaction scientifique sous LaTeX", "Scientific writing in LaTeX", "使用 LaTeX 进行科学写作"], ["Conception du questionnaire de satisfaction", "Design of the satisfaction questionnaire", "满意度问卷设计"], ["Collecte et traitement des données", "Data collection and processing", "数据收集与处理"], ["Analyse descriptive et interprétation", "Descriptive analysis and interpretation", "描述性分析与解读"], ["Université Nazi BONI, Burkina Faso", "Nazi BONI University, Burkina Faso", "纳齐·博尼大学，布基纳法索"], ["Lycée Communal de Dédougou, Burkina Faso", "Dédougou Municipal High School, Burkina Faso", "杜杜市立高中，布基纳法索"], ["Centres d'intérêt", "Interests", "兴趣爱好"], ["📚 Lecture scientifique", "📚 Scientific reading", "📚 科学阅读"], ["📊 Data science", "📊 Data science", "📊 数据科学"], ["⚽ Sport", "⚽ Sports", "⚽ 体育"], ["🎵 Musique", "🎵 Music", "🎵 音乐"], ["Mr Issouf Traoré", "Mr Issouf Traoré", "Issouf Traoré 先生"], ["Dr M. A. Serge SOMDA", "Dr M. A. Serge SOMDA", "M. A. Serge SOMDA 博士"], ["Dr Eric Dabonné", "Dr Eric Dabonné", "Eric Dabonné 博士"], ["Document", "Document", "文档"], ["Ouvrir dans un nouvel onglet ↗", "Open in a new tab ↗", "在新标签页打开 ↗"], ["χ² de Pearson", "Pearson’s χ²", "皮尔逊 χ² 检验"], ["Rapport dengue — Romaric FAHO", "Dengue report — Romaric FAHO", "登革热报告 — Romaric FAHO"]];
+  const M=new Map(D.map(r=>[r[0],r])),IDX={fr:0,en:1,zh:2};let cur='fr';
+  const nodes=[],w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+  while(w.nextNode()){const n=w.currentNode,p=n.parentElement;if(!p||p.closest('script,style,#proj-more-btn'))continue;const k=n.nodeValue.trim();if(M.has(k))nodes.push([n,n.nodeValue,k]);}
+  window.tr=k=>M.has(k)?M.get(k)[IDX[cur]]:k;
+  function set(l){
+    cur=l;
+    nodes.forEach(([n,o,k])=>{n.nodeValue=o.replace(k,()=>M.get(k)[IDX[l]]);});
+    document.documentElement.lang=l;
+    const CVF={fr:'CV_Lomboko_Romaric_FAHO.pdf',en:'CV_Lomboko_Romaric_FAHO_EN.pdf',zh:'CV_Lomboko_Romaric_FAHO_ZH.pdf'};
+    document.querySelectorAll('.cv-link').forEach(a=>{a.href=CVF[l];});
+    document.querySelectorAll('.lang-sw button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));
+    if(window.__apply)window.__apply();
+    try{localStorage.setItem('lang',l);}catch(e){}
   }
-  list.innerHTML = [...visits].reverse().map((v, i) => `
-    <div class="vp-item">
-      <div class="vp-index">${visits.length - i}</div>
-      <div class="vp-main">
-        <div class="vp-name">${v.prenom || ''} ${v.nom || ''} ${flagEmoji(v.country)}</div>
-        <div class="vp-detail"><strong>Lieu :</strong> ${v.residence || '—'}</div>
-        <div class="vp-detail"><strong>But :</strong> ${v.but || '—'}</div>
-        <div class="vp-detail"><strong>Localisation :</strong> ${v.city ? v.city + ', ' : ''}${v.country || 'Inconnu'}</div>
-        <div class="vp-meta">${formatDate(v.ts)}${v.ip ? ' · ' + v.ip : ''}</div>
-      </div>
-    </div>
-  `).join('');
-}
-
-async function recordVisit(formData) {
-  sessionStorage.setItem('visit_recorded', '1');
-  let geoData = { country: 'Inconnu', city: '', ip: '' };
-  try {
-    const r = await fetch('https://ipapi.co/json/', {signal: AbortSignal.timeout(5000)});
-    if (r.ok) {
-      const d = await r.json();
-      geoData = {
-        country: d.country_name || 'Inconnu',
-        city: d.city || '',
-        ip: d.ip ? d.ip.slice(0,-3) + 'xxx' : '',
-      };
-    }
-  } catch(e) {}
-
-  const visits = loadVisits();
-  visits.push({ ts: Date.now(), ...formData, ...geoData });
-  if (visits.length > MAX_VISITS) visits.splice(0, visits.length - MAX_VISITS);
-  saveVisits(visits);
-  renderPanel(visits);
-}
-
-function togglePanel() {
-  const panel = document.getElementById('visitor-panel');
-  // Demander le mot de passe si pas encore authentifié cette session
-  if (!sessionStorage.getItem('owner_auth')) {
-    const pwd = prompt('🔐 Mot de passe propriétaire :');
-    if (pwd !== OWNER_PWD) {
-      alert('Accès refusé.');
-      return;
-    }
-    sessionStorage.setItem('owner_auth', '1');
-  }
-  const isOpen = panel.classList.toggle('open');
-  if (isOpen) renderPanel(loadVisits());
-}
-
-// Fermer panel si clic en dehors
-document.addEventListener('click', function(e) {
-  const panel = document.getElementById('visitor-panel');
-  const btn   = document.getElementById('stat-visitors-btn');
-  if (panel.classList.contains('open') && !panel.contains(e.target) && !btn.contains(e.target)) {
-    panel.classList.remove('open');
-  }
-});
-
-// Initialize counter display only (no auth needed to see count)
-renderPanel(loadVisits());
+  document.querySelectorAll('.lang-sw button').forEach(b=>b.addEventListener('click',()=>set(b.dataset.l)));
+  let saved='fr';try{saved=localStorage.getItem('lang')||'fr';}catch(e){}
+  if(saved!=='fr'&&IDX[saved]!==undefined)set(saved);
+})();
 
 // ── PDF VIEWER (no download) ──
 function openPdf(file, title) {
@@ -1094,7 +905,8 @@ function openPdf(file, title) {
   const fullUrl = base + file;
   // Google Docs viewer (viewer externe sans bouton download)
   frame.src = file + '#toolbar=0&navpanes=0&scrollbar=1&view=FitH';
-  document.getElementById('pdf-modal-title').textContent = title;
+  document.getElementById('pdf-modal-title').textContent = (window.tr||(x=>x))(title);
+  document.getElementById('pdf-modal-link').href = file;
   document.getElementById('pdf-modal').classList.add('open');
 }
 function closePdfModal(e) {
@@ -1124,6 +936,7 @@ document.addEventListener('keydown', function(e) {
   <div class="pdf-modal-box">
     <div class="pdf-modal-header">
       <span class="pdf-modal-title" id="pdf-modal-title">Document</span>
+      <a id="pdf-modal-link" class="pdf-modal-link" target="_blank" rel="noopener">Ouvrir dans un nouvel onglet ↗</a>
       <button class="pdf-modal-close" onclick="document.getElementById('pdf-modal').classList.remove('open')">✕</button>
     </div>
     <iframe id="pdf-modal-frame" class="pdf-modal-frame" src="" title="Document PDF"></iframe>
