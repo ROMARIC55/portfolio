@@ -216,9 +216,32 @@
      RESPONSIVE — Mobile large (≤768px)
   ═══════════════════════════════════════════════ */
   @media(max-width:768px){
-    nav{padding:.9rem 1.2rem;}
-    .nav-links{gap:.8rem;}
-    .nav-links a{font-size:.75rem;letter-spacing:.04em;}
+    /* Navigation mobile : garder le menu compact et dégager le haut du hero */
+    nav{
+      padding:.65rem 1rem;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:.45rem .8rem;
+    }
+    .nav-logo{font-size:1.05rem;}
+    .lang-sw{margin-left:auto;}
+    .nav-links{
+      order:3;
+      width:100%;
+      display:flex;
+      gap:1.1rem;
+      overflow-x:auto;
+      overflow-y:hidden;
+      white-space:nowrap;
+      padding:.35rem 0 .2rem;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:none;
+    }
+    .nav-links::-webkit-scrollbar{display:none;}
+    .nav-links a{font-size:.72rem;letter-spacing:.03em;flex:0 0 auto;}
+    #hero{padding-top:9rem;}
 
     section{padding:3.5rem 1.2rem;}
 
@@ -278,14 +301,14 @@
      RESPONSIVE — Mobile petit (≤480px)
   ═══════════════════════════════════════════════ */
   @media(max-width:480px){
-    nav{padding:.8rem 1rem;}
-    .nav-links{gap:.5rem;}
+    nav{padding:.6rem .8rem;gap:.35rem .6rem;}
+    .nav-links{gap:.9rem;}
     .nav-links a{font-size:.68rem;}
     .nav-logo{font-size:1rem;}
 
     section{padding:2.8rem 1rem;}
 
-    #hero{padding:5.5rem 1rem 5rem;}
+    #hero{padding:9rem 1rem 5rem;}
     .hero-name{font-size:2.2rem;}
     .hero-title{font-size:.85rem;}
     .hero-desc{font-size:.9rem;}
@@ -333,9 +356,9 @@
   ═══════════════════════════════════════════════ */
   @media(max-width:360px){
     .nav-links a{font-size:.62rem;letter-spacing:0;}
-    .nav-links{gap:.3rem;}
+    .nav-links{gap:.75rem;}
     section{padding:2.5rem .8rem;}
-    #hero{padding:5rem .8rem 5rem;}
+    #hero{padding:8.7rem .8rem 5rem;}
     .hero-name{font-size:1.9rem;}
     .project-techs{gap:.3rem;}
     .project-tech{font-size:.62rem;padding:.2rem .4rem;}
